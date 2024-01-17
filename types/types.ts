@@ -6,10 +6,12 @@ export type ClassifiedText = {
             score: number
         }
     ],
-    sentiment: {
-        overall_sentiment: string,
-        avg_bullish_score: number,
-        avg_neutral_score: number,
-        avg_bearish_score: number
-    }
+    "Average Score Bullish": number,
+    "Average Score Neutral": number,
+    "Average Score Bearish": number,
+    "Amount Bullish": number,
+    "Amount Neutral": number,
+    "Amount Bearish": number,
+    "Weighted Sentiment": number,
+    "Overall Sentiment": string
 }

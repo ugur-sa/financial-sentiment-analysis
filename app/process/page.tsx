@@ -12,7 +12,10 @@ export default async function ProcessPage({searchParams}: searchParams) {
 
     const url = searchParams.url;
 
-    const response = await fetch("http://127.0.0.1:5000/process-url", {
+    const apiURL = "http://flask-app:5000/process-url";
+    const localURL = "http://127.0.0.1:5000/process-url";
+
+    const response = await fetch(localURL, {
         method: "POST",
         body: JSON.stringify({ url: url }),
         headers: {
@@ -20,6 +23,8 @@ export default async function ProcessPage({searchParams}: searchParams) {
         },
       });
       const data: ClassifiedText = await response.json();
+
+      console.log(data);
     
       if(!data) { return <div>Loading...</div> }
 

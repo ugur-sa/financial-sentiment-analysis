@@ -41,3 +41,8 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.tooltip-trigger {
+  cursor: default;
+  user-select: text;
+}

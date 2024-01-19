@@ -25,7 +25,7 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
           {classifiedText.sentences.map((sentence: any, i: number) => (
             <div key={i} className="flex justify-center items-center">
               <p className="font-thin mr-2 text-sm">{i+1}</p>
-              <SentenceCard sentence={sentence.sentence} label={sentence.result[0]["label"]} score={sentence.result[0]["score"]} index={i+1} />
+              <SentenceCard sentence={sentence.sentence} label={sentence.result["label"]} score={sentence.result["score"]} index={i+1} />
             </div>
           ))}
         </div>

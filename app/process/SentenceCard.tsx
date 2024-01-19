@@ -25,7 +25,7 @@ const SentenceCard: React.FC<SentenceCardProps> = ({ sentence, label, score, ind
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTriggerWithDefaultCursor>
-                    <div className='w-[600px]'>
+                    <div className='w-[450px] lg:w-[800px]'>
                         <div className={
                         `${label === 'bullish' 
                         ? 

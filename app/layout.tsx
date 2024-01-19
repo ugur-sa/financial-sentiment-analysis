@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Yahoo Finance Sentiment Analysis',
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body>{children}</body>
+      <body>
+        {children}
+      </body>
     </html>
   )
 }

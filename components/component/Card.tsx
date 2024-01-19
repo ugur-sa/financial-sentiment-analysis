@@ -23,10 +23,10 @@ const Card: React.FC<Props> = (props) => {
     }
 
     return (
-        <div className="w-60 h-40 border border-gray-300 shadow-md p-2 rounded-md flex flex-col">
-            <p className="font-semibold text-xl text-center">{props.title}</p>
+        <div className="w-30 h-20 lg:w-60 lg:h-40 border border-gray-300 shadow-md p-2 rounded-md flex flex-col">
+            <p className="font-semibold text-md lg:text-xl text-center">{props.title}</p>
             <div className='w-full h-full flex justify-center items-center'>
-                <p className={`text-center ${textColor()} ${typeof props.value === "string" ? "text-4xl font-bold" : "text-3xl font-medium"}`}>{typeof props.value === "number" && props.value % 1 != 0 ? props.value.toFixed(3) : props.value}</p>
+                <p className={`text-center ${textColor()} ${typeof props.value === "string" ? "text-xl lg:text-4xl font-bold" : "text-lg lg:text-3xl font-medium"}`}>{typeof props.value === "number" && props.value % 1 != 0 ? props.value.toFixed(3) : props.value}</p>
              </div>
         </div>
     );

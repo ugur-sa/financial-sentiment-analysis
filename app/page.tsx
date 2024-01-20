@@ -45,7 +45,7 @@ export default function Home() {
           <div>
             <p className="text-3xl font-bold">Link Input</p>
             <p className="text-md text-gray-600">Geben Sie bitte einen Link ein</p>
-            <p className="text-[12px] text-gray-600">(Der Link sollte von der Kategorie "Business" sein)</p>
+            <p className="text-[12px] text-gray-600">(Der Link sollte von der Kategorie &quot;Business&quot; sein)</p>
           </div>
           <div className="mt-20">
             <input 

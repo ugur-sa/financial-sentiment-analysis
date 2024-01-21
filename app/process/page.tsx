@@ -15,13 +15,11 @@ export default async function ProcessPage({ searchParams }: searchParams) {
 
   const awsURL = AWS_URL + "?url=" + url;
 
-  // const dockerURL = "http://flask-app:5000/process-url";
-  // const localURL = "http://127.0.0.1:5000/process-url";
-
   const response = await fetch(awsURL, {
     method: "GET",
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "application/json",
+      "x-api-key": process.env.X_API_KEY || "",
     },
   });
 

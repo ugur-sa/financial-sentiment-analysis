@@ -21,9 +21,10 @@ export default async function ProcessPage({ searchParams }: searchParams) {
   const response = await fetch(awsURL, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "text/plain",
     },
   });
+
   const data: ClassifiedText = await response.json();
 
   if (!response.ok) {

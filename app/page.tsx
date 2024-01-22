@@ -32,7 +32,7 @@ export default function Home() {
 		setUrl(inputUrl);
 		if (inputUrl && !checkUrl(inputUrl)) {
 			setErrorMessage(
-				'Bitte geben Sie einen Link ein, der nur "news" enthält.'
+				'Bitte geben Sie einen Link ein, der nur "news" enthält.',
 			);
 		} else {
 			setErrorMessage('');
@@ -41,37 +41,38 @@ export default function Home() {
 
 	return (
 		<>
-			<div className='flex flex-col gap-10 justify-center items-center h-full'>
-				<div className='border border-gray-300 shadow-sm w-[500px] h-[350px] rounded-md p-12'>
+			<div className="flex h-full flex-col items-center justify-center gap-10">
+				<div className="h-[350px] w-[500px] rounded-md border border-gray-300 p-12 shadow-sm">
 					<div>
-						<div className='flex justify-between items-center'>
-							<p className='text-3xl font-bold'>Link Input</p>
-							<div className='p-1 bg-gray-300 rounded-md text-center font-semibold'>
+						<div className="flex items-center justify-between">
+							<p className="text-3xl font-bold">Link Input</p>
+							<div className="rounded-md bg-gray-300 p-1 text-center font-semibold">
 								Testing
 							</div>
 						</div>
-						<p className='text-md text-gray-600'>
+						<p className="text-md text-gray-600">
 							Geben Sie bitte einen Link ein
 						</p>
-						<p className='text-[12px] text-gray-600'>
+						<p className="text-[12px] text-gray-600">
 							(Der Link sollte von der Kategorie &quot;Business&quot; sein)
 						</p>
 					</div>
-					<div className='mt-20'>
+					<div className="mt-20">
 						<input
 							onChange={handleInputChange}
 							value={url}
-							className='w-full border border-gray-400 rounded-md p-3'
-							type='text'
-							placeholder='Link einfügen ...'
+							className="w-full rounded-md border border-gray-400 p-3"
+							type="text"
+							placeholder="Link einfügen ..."
 						/>
 						{errorMessage && (
-							<p className='text-red-500 text-sm'>{errorMessage}</p>
+							<p className="text-sm text-red-500">{errorMessage}</p>
 						)}
 						<button
 							onClick={handleSubmit}
-							className={`bg-black hover:bg-zinc-800 text-white p-2 w-full mt-2 rounded-lg text-center font-semibold ${errorMessage || !url ? 'opacity-50 cursor-not-allowed' : ''}`}
-							disabled={!!errorMessage || !url}>
+							className={`mt-2 w-full rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800 ${errorMessage || !url ? 'cursor-not-allowed opacity-50' : ''}`}
+							disabled={!!errorMessage || !url}
+						>
 							Bestätigen
 						</button>
 					</div>
@@ -80,8 +81,8 @@ export default function Home() {
 					<BarLoader
 						color={'#000'}
 						cssOverride={override}
-						aria-label='Loading Spinner'
-						data-testid='loader'
+						aria-label="Loading Spinner"
+						data-testid="loader"
 					/>
 				)}
 			</div>

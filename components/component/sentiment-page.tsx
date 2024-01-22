@@ -9,48 +9,46 @@ interface SentimentPageProps {
 export function SentimentPage({ classifiedText }: SentimentPageProps) {
 	return (
 		<>
-			<div className='w-full h-full flex flex-col-reverse xl:flex-row'>
-				<div className='w-full xl:w-1/3 h-full grid grid-cols-2 p-12'>
+			<div className="flex h-full w-full flex-col-reverse xl:flex-row">
+				<div className="grid h-full w-full grid-cols-2 p-12 xl:w-1/3">
 					<Card
-						title='Overall Sentiment'
+						title="Overall Sentiment"
 						value={classifiedText['Overall Sentiment']}
 					/>
 					<Card
-						title='Weighted Sentiment'
+						title="Weighted Sentiment"
 						value={classifiedText['Weighted Sentiment']}
 					/>
 					<Card
-						title='Average Bullish Score'
+						title="Average Bullish Score"
 						value={classifiedText['Average Score Bullish']}
 					/>
 					<Card
-						title='Average Neutral Score'
+						title="Average Neutral Score"
 						value={classifiedText['Average Score Neutral']}
 					/>
 					<Card
-						title='Average Bearish Score'
+						title="Average Bearish Score"
 						value={classifiedText['Average Score Bearish']}
 					/>
 					<Card
-						title='Bullish Sentences'
+						title="Bullish Sentences"
 						value={classifiedText['Amount Bullish']}
 					/>
 					<Card
-						title='Neutral Sentences'
+						title="Neutral Sentences"
 						value={classifiedText['Amount Neutral']}
 					/>
 					<Card
-						title='Bearish Sentences'
+						title="Bearish Sentences"
 						value={classifiedText['Amount Bearish']}
 					/>
 				</div>
 				{/*-------------------------------------------------------------------*/}
-				<div className='flex flex-col items-center gap-2 w-full h-full xl:w-2/3 p-3 overflow-scroll no-scrollbar border border-l-2'>
+				<div className="no-scrollbar flex h-full w-full flex-col items-center gap-2 overflow-scroll border border-l-2 p-3 xl:w-2/3">
 					{classifiedText.sentences.map((sentence: any, i: number) => (
-						<div
-							key={i}
-							className='flex justify-center items-center'>
-							<p className='font-thin mr-2 text-sm'>{i + 1}</p>
+						<div key={i} className="flex items-center justify-center">
+							<p className="mr-2 text-sm font-thin">{i + 1}</p>
 							<SentenceCard
 								sentence={sentence.sentence}
 								label={sentence.result['label']}
@@ -61,8 +59,8 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
 					))}
 				</div>
 			</div>
-			<div className='xl:absolute xl:top-0'>
-				<Link href='/'>Go back</Link>
+			<div className="xl:absolute xl:top-0">
+				<Link href="/">Go back</Link>
 			</div>
 		</>
 	);

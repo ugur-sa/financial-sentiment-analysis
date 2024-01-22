@@ -21,9 +21,7 @@ interface TooltipTriggerWithDefaultCursorProps {
 const TooltipTriggerWithDefaultCursor: React.FC<
 	TooltipTriggerWithDefaultCursorProps
 > = ({ children, ...props }) => (
-	<TooltipTrigger
-		className='tooltip-trigger'
-		{...props}>
+	<TooltipTrigger className="tooltip-trigger" {...props}>
 		{children}
 	</TooltipTrigger>
 );
@@ -38,7 +36,7 @@ const SentenceCard: React.FC<SentenceCardProps> = ({
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTriggerWithDefaultCursor>
-					<div className='w-[450px] lg:w-[800px]'>
+					<div className="w-[450px] lg:w-[800px]">
 						<div
 							className={`${
 								label === 'bullish'
@@ -46,13 +44,14 @@ const SentenceCard: React.FC<SentenceCardProps> = ({
 									: label === 'bearish'
 										? 'bg-red-400'
 										: 'bg-gray-400'
-							} rounded-md shadow-sm p-2 font-medium`}>
+							} rounded-md p-2 font-medium shadow-sm`}
+						>
 							{sentence}
 						</div>
 					</div>
 				</TooltipTriggerWithDefaultCursor>
 				<TooltipContent>
-					<div className=''>
+					<div className="">
 						{index}: {label} {score.toFixed(3)}
 					</div>
 				</TooltipContent>

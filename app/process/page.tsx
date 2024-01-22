@@ -27,8 +27,8 @@ export default async function ProcessPage({ searchParams }: searchParams) {
 
 	if (!response.ok) {
 		return (
-			<div className='flex justify-center items-center h-screen'>
-				<p className='text-4xl font-bold text-red-500'>{response.statusText}</p>
+			<div className="flex h-screen items-center justify-center">
+				<p className="text-4xl font-bold text-red-500">{response.statusText}</p>
 				<p>{response.toString()}</p>
 			</div>
 		);

@@ -32,7 +32,7 @@ export default function Home() {
 		setUrl(inputUrl);
 		if (inputUrl && !checkUrl(inputUrl)) {
 			setErrorMessage(
-				'Dieser Link wird nicht akzeptiert. Bitte geben Sie einen Link ein, der nur "news" enthält.'
+				'Bitte geben Sie einen Link ein, der nur "news" enthält.'
 			);
 		} else {
 			setErrorMessage('');

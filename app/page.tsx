@@ -2,6 +2,7 @@
 import { useState, CSSProperties } from 'react';
 import BarLoader from 'react-spinners/BarLoader';
 import { useRouter } from 'next/navigation';
+import CountdownDate from '@/components/component/CountdownDate';
 
 const override: CSSProperties = {
 	display: 'block',
@@ -41,6 +42,9 @@ export default function Home() {
 
 	return (
 		<>
+			<div className="absolute left-0 top-0">
+				<CountdownDate targetDate="2024-06-01T00:00:00" />
+			</div>
 			<div className="flex h-full flex-col items-center justify-center gap-10">
 				<div className="h-[350px] w-[500px] rounded-md border border-gray-300 p-12 shadow-sm">
 					<div>

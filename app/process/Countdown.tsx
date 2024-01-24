@@ -8,13 +8,15 @@ interface CountdownProps {
 const Countdown: React.FC<CountdownProps> = ({ targetNumber }) => {
 	const [remainingNumber, setRemainingNumber] = useState<number>(targetNumber);
 
+	if (remainingNumber === 0) {
+		window.location.reload();
+	}
+
 	useEffect(() => {
 		const interval = setInterval(() => {
-			if (remainingNumber === 0) {
-				clearInterval(interval);
-				location.reload();
+			if (remainingNumber > 0) {
+				setRemainingNumber((prevNumber) => prevNumber - 1);
 			}
-			setRemainingNumber((prevNumber) => prevNumber - 1);
 		}, 1000);
 
 		return () => {

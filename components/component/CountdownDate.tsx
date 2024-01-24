@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const CountdownDate = ({ targetDate }: { targetDate: string }) => {
 	const calculateTimeLeft = () => {
@@ -17,7 +17,7 @@ const CountdownDate = ({ targetDate }: { targetDate: string }) => {
 		return timeLeft;
 	};
 
-	const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+	const [timeLeft, setTimeLeft] = useState({});
 
 	useEffect(() => {
 		const timer = setTimeout(() => {

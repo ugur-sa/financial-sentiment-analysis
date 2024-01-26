@@ -16,7 +16,6 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
-	// blöde Lösung, aber funktioniert
 	const handleSubmit = async () => {
 		if (!errorMessage && url) {
 			setIsLoading(true);

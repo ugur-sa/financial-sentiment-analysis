@@ -3,6 +3,7 @@ import { useState, CSSProperties } from 'react';
 import BarLoader from 'react-spinners/BarLoader';
 import { useRouter } from 'next/navigation';
 import CountdownDate from '@/components/component/CountdownDate';
+import RequestsTable from '@/components/component/RequestsTable';
 
 const override: CSSProperties = {
 	display: 'block',
@@ -39,13 +40,28 @@ export default function Home() {
 		}
 	};
 
+	const mockRequests = [
+		{
+			url: 'https://www.nzz.ch/feuilleton/der-erste-schritt-zur-wahrheit-ld.1622420',
+			status: 'pending',
+		},
+		{
+			url: 'https://www.nzz.ch/feuilleton/der-erste-schritt-zur-wahrheit-ld.1622420',
+			status: 'pending',
+		},
+		{
+			url: 'https://www.nzz.ch/feuilleton/der-erste-schritt-zur-wahrheit-ld.1622420',
+			status: 'pending',
+		},
+	];
+
 	return (
 		<>
 			<div className="absolute left-0 top-0">
 				<CountdownDate targetDate="2024-06-01T00:00:00" />
 			</div>
 			<div className="flex h-full flex-col items-center justify-center gap-10">
-				<div className="h-[350px] w-[500px] rounded-md border border-gray-300 p-12 shadow-sm">
+				<div className="h-[350px] w-[500px] rounded-md border border-gray-300 p-12 shadow-md">
 					<div>
 						<div className="flex items-center justify-between">
 							<p className="text-3xl font-bold">Link Input</p>
@@ -88,6 +104,7 @@ export default function Home() {
 						data-testid="loader"
 					/>
 				)}
+				<RequestsTable requests={mockRequests} />
 			</div>
 		</>
 	);

@@ -49,7 +49,7 @@ export default async function ProcessPage({ searchParams }: searchParams) {
 		} else {
 			const error: { message: string } = JSON.parse(await response.text());
 			const statusCode = response.status;
-
+			console.log(await response.json());
 			return (
 				<>
 					<Link href="/">Go back</Link>

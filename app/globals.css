@@ -46,3 +46,9 @@ body {
 	cursor: default;
 	user-select: text;
 }
+
+.sweet-loading {
+	transform: scale(
+		0.4
+	); /* Skaliert den gesamten Loader auf die Hälfte seiner Größe */
+}

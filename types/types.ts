@@ -15,3 +15,8 @@ export type ClassifiedText = {
 	'Weighted Sentiment': number;
 	'Overall Sentiment': string;
 };
+
+export type Requests = {
+	url: string;
+	status: string;
+};

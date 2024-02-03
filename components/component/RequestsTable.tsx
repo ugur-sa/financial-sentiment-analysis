@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
-
-type Requests = {
-	url: string;
-	status: string;
-};
+import FadeLoader from 'react-spinners/FadeLoader';
+import { SuccessIcon, FailedIcon } from '../ui/Icons';
+import { Requests } from '@/types/types';
 
 interface Props {
 	requests: Requests[];
@@ -43,7 +41,28 @@ const RequestsTable: React.FC<Props> = (props) => {
 									request.url
 								)}
 							</td>
-							<td className="p-4">{request.status}</td>
+							<td className="">
+								{request.status === 'completed' ? (
+									<div className="flex w-full justify-center">
+										<SuccessIcon />
+									</div>
+								) : request.status === 'pending' ? (
+									<div className="sweet-loading ml-1 flex w-full justify-center">
+										<FadeLoader
+											color={'#0079d5'}
+											aria-label="Loading Spinner"
+											data-testid="loader"
+											height={15}
+											width={5}
+											margin={-1}
+										/>
+									</div>
+								) : (
+									<div className="flex w-full justify-center">
+										<FailedIcon />
+									</div>
+								)}
+							</td>
 						</tr>
 					))}
 				</tbody>

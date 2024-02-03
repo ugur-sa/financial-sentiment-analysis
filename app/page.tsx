@@ -62,7 +62,7 @@ export default function Home() {
 				setRequests((prev) =>
 					prev.map((request) =>
 						request.url === message.url
-							? { ...request, status: 'failed' }
+							? { ...request, status: 'failed', text: message.error }
 							: request,
 					),
 				);
@@ -73,7 +73,7 @@ export default function Home() {
 				setRequests((prev) =>
 					prev.map((request) =>
 						request.url === message.url
-							? { ...request, status: 'failed' }
+							? { ...request, status: 'failed', text: message.error }
 							: request,
 					),
 				);
@@ -81,7 +81,7 @@ export default function Home() {
 				setRequests((prev) =>
 					prev.map((request) =>
 						request.url === message.url
-							? { ...request, status: 'failed' }
+							? { ...request, status: 'failed', text: message.error }
 							: request,
 					),
 				);
@@ -89,7 +89,7 @@ export default function Home() {
 				setRequests((prev) =>
 					prev.map((request) =>
 						request.url === message.url
-							? { ...request, status: 'failed' }
+							? { ...request, status: 'failed', text: message.error }
 							: request,
 					),
 				);
@@ -110,7 +110,6 @@ export default function Home() {
 					),
 				);
 			}
-			console.log(message);
 		};
 
 		ws.onclose = () => {
@@ -153,17 +152,17 @@ export default function Home() {
 				setRequests((prev) =>
 					prev.map((request, index) =>
 						index === requestIndex
-							? { ...request, status: 'pending' }
+							? { ...request, status: 'pending', text: undefined }
 							: request,
 					),
 				);
 			} else {
 				setRequests((prev) => [
-					...prev,
 					{
 						url,
 						status: 'pending',
 					},
+					...prev,
 				]);
 			}
 

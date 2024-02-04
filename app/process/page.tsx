@@ -13,7 +13,7 @@ type searchParams = {
 export default async function ProcessPage({ searchParams }: searchParams) {
 	const url = searchParams.url;
 
-	const AWS_URL = process.env.AWS_URL;
+	const AWS_URL = process.env.AWS_URL_GET_RESULT;
 
 	const awsURL = AWS_URL + '?url=' + url;
 
@@ -21,7 +21,7 @@ export default async function ProcessPage({ searchParams }: searchParams) {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-api-key': process.env.X_API_KEY || '',
+			'x-api-key': process.env.AWS_URL_API_KEY || '',
 		},
 	});
 
@@ -49,7 +49,6 @@ export default async function ProcessPage({ searchParams }: searchParams) {
 		} else {
 			const error: { message: string } = JSON.parse(await response.text());
 			const statusCode = response.status;
-			console.log(await response.json());
 			return (
 				<>
 					<Link href="/">Go back</Link>

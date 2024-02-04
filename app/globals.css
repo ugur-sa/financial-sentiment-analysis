@@ -73,3 +73,66 @@ body {
 ::-webkit-scrollbar-thumb:hover {
 	background: #555;
 }
+
+.glowing-border-div {
+	padding: 5px 10px;
+	border-radius: 20px;
+	color: black; /* Textfarbe */
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	position: relative;
+	z-index: 2;
+	user-select: none;
+	display: inline-block;
+}
+
+.glowing-border-div::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	background: rgb(241, 241, 241); /* Hintergrundfarbe des div */
+	border-radius: 30px; /* Radius des div */
+}
+
+.glowing-border-div::after {
+	content: '';
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	bottom: -2px;
+	left: -2px; /* Größe des Glüheffekts */
+	z-index: -2;
+	background: linear-gradient(
+		60deg,
+		#ff0000,
+		#ff7300,
+		#fffb00,
+		#48ff00,
+		#00ffd5,
+		#002bff,
+		#7a00ff,
+		#ff00ab,
+		#ff0000
+	);
+	background-size: 300% 300%;
+	border-radius: 30px;
+	opacity: 1;
+	animation: moveGradient 20s linear infinite;
+}
+
+@keyframes moveGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

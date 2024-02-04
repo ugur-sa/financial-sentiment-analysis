@@ -18,7 +18,7 @@ const RequestsTable: React.FC<Props> = (props) => {
 	// Implement your component logic here
 	const requestLength = props.requests.length;
 	return (
-		<div className="mb-4 h-96 w-fit overflow-y-scroll rounded-md border border-gray-300 bg-white px-8 pb-2 pt-8 shadow-xl">
+		<div className="mb-4 overflow-y-scroll rounded-md border border-gray-300 bg-white px-8 pb-2 pt-8 shadow-xl lg:max-h-96 lg:max-w-[50%]">
 			<h3 className="mb-4 pl-4 text-2xl font-semibold">Deine Requests</h3>
 			<table className="table-auto">
 				<thead>

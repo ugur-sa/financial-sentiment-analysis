@@ -53,9 +53,16 @@ export default function Home() {
 		ws.onmessage = (event) => {
 			const message = JSON.parse(event.data);
 			if (message.message === 'This URL has already been processed') {
-				//remove this url from the requests array
+				//remove this request from the list
 				setRequests((prev) =>
-					prev.filter((request) => request.url !== message.url),
+					prev.filter((request) => request.url !== message.redirect),
+				);
+				//remove this request from localstorage
+				localStorage.setItem(
+					'requests',
+					JSON.stringify(
+						requests.filter((request) => request.url !== message.redirect),
+					),
 				);
 				router.push(`/process/?url=${message.redirect}`);
 			} else if (message.error === 'Rate limit reached') {
@@ -73,7 +80,11 @@ export default function Home() {
 				setRequests((prev) =>
 					prev.map((request) =>
 						request.url === message.url
-							? { ...request, status: 'failed', text: message.error }
+							? {
+									...request,
+									status: 'failed',
+									text: message.error + ' Please wait 20 seconds.',
+								}
 							: request,
 					),
 				);
@@ -110,6 +121,7 @@ export default function Home() {
 					),
 				);
 			}
+			console.log(message);
 		};
 
 		ws.onclose = () => {
@@ -138,6 +150,17 @@ export default function Home() {
 	}, []);
 
 	const sendUrlToWebSocket = (url: string) => {
+		url = url.replace(/\s+/g, '');
+		// if the url is in the list and its status is pending, do nothing
+		const requestIndex = requests.findIndex((request) => request.url === url);
+		if (requestIndex !== -1 && requests[requestIndex].status === 'completed') {
+			router.push(`/process?url=${url}`);
+			setUrl('');
+			if (requests[requestIndex].status === 'pending') {
+				return;
+			}
+			return;
+		}
 		if (websocket && websocket.readyState === WebSocket.OPEN) {
 			// Sende die Nachricht
 			websocket.send(
@@ -184,48 +207,51 @@ export default function Home() {
 					</div>
 				) : (
 					<div className="bg-red-500 p-2 text-center text-white">
-						Disconnected
+						Disconnected. Please refresh the page.
 					</div>
 				)}
 			</div>
-			<div className="flex h-full flex-col items-center justify-center gap-10">
-				<div className="h-[350px] w-[500px] rounded-md border border-gray-300 p-12 shadow-md">
-					<div>
-						<div className="flex items-center justify-between">
-							<p className="text-3xl font-bold">Link Input</p>
-							<div className="rounded-md bg-gray-300 p-1 text-center font-semibold">
-								Testing
+			{isConnected && (
+				<div className="flex h-full flex-col items-center justify-center gap-10">
+					<div className="h-[350px] w-[500px] rounded-md border border-gray-300 p-12 shadow-md">
+						<div>
+							<div className="flex items-center justify-between">
+								<p className="text-3xl font-bold">Link Input</p>
+								{/* <div className="rounded-md bg-gray-300 p-1 text-center font-semibold">
+									Testing
+								</div> */}
+								<div className="glowing-border-div">Testing</div>
 							</div>
+							<p className="text-md text-gray-600">
+								Geben Sie bitte einen Link ein
+							</p>
+							<p className="text-[12px] text-gray-600">
+								(Der Link sollte von der Kategorie &quot;Business&quot; sein)
+							</p>
 						</div>
-						<p className="text-md text-gray-600">
-							Geben Sie bitte einen Link ein
-						</p>
-						<p className="text-[12px] text-gray-600">
-							(Der Link sollte von der Kategorie &quot;Business&quot; sein)
-						</p>
+						<div className="mt-20">
+							<input
+								onChange={handleInputChange}
+								value={url}
+								className="w-full rounded-md border border-gray-400 p-3"
+								type="text"
+								placeholder="Link einfügen ..."
+							/>
+							{errorMessage && (
+								<p className="text-sm text-red-500">{errorMessage}</p>
+							)}
+							<button
+								onClick={() => sendUrlToWebSocket(url)}
+								className={`mt-2 w-full rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800 ${errorMessage || !url ? 'cursor-not-allowed opacity-50' : ''}`}
+								disabled={!!errorMessage || !url}
+							>
+								Bestätigen
+							</button>
+						</div>
 					</div>
-					<div className="mt-20">
-						<input
-							onChange={handleInputChange}
-							value={url}
-							className="w-full rounded-md border border-gray-400 p-3"
-							type="text"
-							placeholder="Link einfügen ..."
-						/>
-						{errorMessage && (
-							<p className="text-sm text-red-500">{errorMessage}</p>
-						)}
-						<button
-							onClick={() => sendUrlToWebSocket(url)}
-							className={`mt-2 w-full rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800 ${errorMessage || !url ? 'cursor-not-allowed opacity-50' : ''}`}
-							disabled={!!errorMessage || !url || isConnected === false}
-						>
-							Bestätigen
-						</button>
-					</div>
+					{requests.length > 0 && <RequestsTable requests={requests} />}
 				</div>
-				{requests.length > 0 && <RequestsTable requests={requests} />}
-			</div>
+			)}
 		</>
 	);
 }

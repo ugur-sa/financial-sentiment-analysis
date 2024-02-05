@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import CountdownDate from '@/components/component/CountdownDate';
 import RequestsTable from '@/components/component/RequestsTable';
 import { Requests } from '@/types/types';
+import Modal from '@/components/component/Modal';
+import { InfoIcon } from '@/components/ui/Icons';
 
 export default function Home() {
 	const [url, setUrl] = useState('');
@@ -11,7 +13,14 @@ export default function Home() {
 	const [isConnected, setIsConnected] = useState(false);
 	const [websocket, setWebsocket] = useState<WebSocket | null>(null);
 	const [requests, setRequests] = useState<Requests[]>([]);
+	// States for Modal
+	const [isOpen, setIsOpen] = useState(true);
+
 	const router = useRouter();
+
+	const onClose = () => {
+		setIsOpen(false);
+	};
 
 	useEffect(() => {
 		const initialRequests = localStorage.getItem('requests');
@@ -207,23 +216,60 @@ export default function Home() {
 
 	return (
 		<>
-			<div className="absolute left-0 top-0">
-				<CountdownDate targetDate="2024-06-01T01:00:00" />
-			</div>
-			<div className="absolute right-0 top-0">
-				{isConnected ? (
-					<div className="bg-green-500 p-2 text-center text-white">
-						Connected
-					</div>
-				) : (
-					<div className="bg-red-500 p-2 text-center text-white">
-						Disconnected. Please refresh the page.
-					</div>
-				)}
-			</div>
+			<Modal isOpen={isOpen} onClose={onClose}>
+				<div className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-10 shadow-xl lg:h-[800px] lg:w-1/2">
+					<span className="text-xl font-semibold">Sehr geehrter Nutzer</span>
+					<p className="mt-4">
+						Willkommen auf unserer Plattform. Bitte geben Sie einen Link ein,
+						der von der Kategorie &quot;Business&quot; ist. Die Plattform wird
+						den Link verarbeiten und Ihnen die Ergebnisse anzeigen.
+					</p>
+					<p className="mt-4">
+						Bitte beachten Sie, dass die Verarbeitung des Links einige Zeit in
+						Anspruch nehmen kann.
+					</p>
+					<p className="mt-4">
+						Wenn Sie Fragen haben, wenden Sie sich bitte an{' '}
+						<a href="mailto:ugur.sadiklar@stud.hn.de">
+							ugur.sadiklar@stud.hn.de
+						</a>
+					</p>
+					<p className="mt-4">
+						<strong>Technische Details:</strong>
+					</p>
+					<img src="images/aws_diagram_2.png" />
+
+					<button
+						onClick={onClose}
+						className="mt-10 w-full rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
+					>
+						Verstanden
+					</button>
+				</div>
+			</Modal>
+
+			<header className="mb-20">
+				<div className="flex items-center justify-between">
+					<CountdownDate targetDate="2024-06-01T01:00:00" />
+					<button className="" onClick={() => setIsOpen(true)}>
+						<InfoIcon />
+					</button>
+				</div>
+			</header>
+			{/* <div className="absolute right-0 top-0">
+					{isConnected ? (
+						<div className="bg-green-500 p-2 text-center text-white">
+							Connected
+						</div>
+					) : (
+						<div className="bg-red-500 p-2 text-center text-white">
+							Disconnected. Please refresh the page.
+						</div>
+					)}
+				</div> */}
 			{isConnected && (
-				<div className="flex h-full flex-col items-center justify-center gap-10">
-					<div className="h-[350px] w-[500px] rounded-md border border-gray-300 p-12 shadow-md">
+				<div className="flex h-fit flex-col items-center justify-center gap-10 overflow-x-hidden">
+					<div className="rounded-md border border-gray-300 p-12 shadow-md lg:h-[350px] lg:w-[500px]">
 						<div>
 							<div className="flex items-center justify-between">
 								<p className="text-3xl font-bold">Link Input</p>
@@ -259,7 +305,7 @@ export default function Home() {
 							</button>
 						</div>
 					</div>
-					{requests.length > 0 && <RequestsTable requests={requests} />}
+					<RequestsTable requests={requests} />
 				</div>
 			)}
 		</>

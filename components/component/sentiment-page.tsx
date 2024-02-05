@@ -10,7 +10,7 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
 	return (
 		<>
 			<div className="flex h-full w-full flex-col-reverse xl:flex-row">
-				<div className="grid h-full w-full grid-cols-2 p-12 xl:w-2/5">
+				<div className="grid h-full w-full grid-cols-2 place-items-center gap-2 p-12 xl:w-2/5">
 					<Card
 						title="Overall Sentiment"
 						value={classifiedText['Overall Sentiment']}
@@ -47,7 +47,10 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
 				{/*-------------------------------------------------------------------*/}
 				<div className="no-scrollbar flex h-full w-full flex-col items-center gap-2 overflow-scroll border border-l-2 p-3 xl:w-3/5">
 					{classifiedText.sentences.map((sentence: any, i: number) => (
-						<div key={i} className="flex items-center justify-center">
+						<div
+							key={i}
+							className="flex w-[calc(100%-10px)] items-center justify-start md:w-fit"
+						>
 							<p className="mr-2 text-sm font-thin">{i + 1}</p>
 							<SentenceCard
 								sentence={sentence.sentence}

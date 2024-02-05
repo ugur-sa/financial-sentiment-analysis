@@ -22,7 +22,7 @@ const Card: React.FC<Props> = (props) => {
 	};
 
 	return (
-		<div className="w-30 flex h-20 flex-col rounded-md border border-gray-300 p-2 shadow-md lg:h-40 lg:w-60">
+		<div className="w-30 flex h-[100px] flex-col rounded-md border border-gray-300 p-2 shadow-md lg:h-40 lg:w-5/6">
 			<p className="text-md text-center font-semibold lg:text-xl">
 				{props.title}
 			</p>

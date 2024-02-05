@@ -153,7 +153,7 @@ export default function Home() {
 				);
 				setTimeout(() => {
 					connectWebSocket();
-				}, 3000); // Verzögerung vor dem Wiederverbinden
+				}, 1000); // Verzögerung vor dem Wiederverbinden
 			};
 
 			ws.onerror = (error) => {

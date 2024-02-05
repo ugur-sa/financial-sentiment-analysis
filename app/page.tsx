@@ -14,17 +14,22 @@ export default function Home() {
 	const [websocket, setWebsocket] = useState<WebSocket | null>(null);
 	const [requests, setRequests] = useState<Requests[]>([]);
 	// States for Modal
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const router = useRouter();
 
 	const onClose = () => {
 		setIsOpen(false);
+		localStorage.setItem('hasUserSeenModal', 'true');
 	};
 
 	useEffect(() => {
 		const initialRequests = localStorage.getItem('requests');
+		const hasUserSeenModal = localStorage.getItem('hasUserSeenModal');
 
+		if (!hasUserSeenModal) {
+			setIsOpen(true);
+		}
 		if (initialRequests) setRequests(JSON.parse(initialRequests));
 	}, []);
 

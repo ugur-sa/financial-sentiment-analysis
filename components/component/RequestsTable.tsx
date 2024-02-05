@@ -17,7 +17,6 @@ interface Props {
 const RequestsTable: React.FC<Props> = (props) => {
 	// Implement your component logic here
 	const requestsLength = props.requests.length;
-	console.log('requestsLength', requestsLength);
 	return (
 		<div className="no-scrollbar mb-4 w-fit overflow-y-scroll rounded-md border border-gray-300 bg-white px-8 pb-2 pt-8 lg:max-h-96 lg:max-w-[50%]">
 			<h3 className="mb-4 pl-4 text-2xl font-semibold">Ihre Requests</h3>

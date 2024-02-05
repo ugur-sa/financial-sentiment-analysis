@@ -43,109 +43,119 @@ export default function Home() {
 
 	useEffect(() => {
 		const WSS_URL = process.env.NEXT_PUBLIC_WSS_URL!;
-		let ws = new WebSocket(WSS_URL);
 
-		ws.onopen = () => {
-			console.log('Connected to WebSocket');
-			setIsConnected(true);
-		};
+		function connectWebSocket() {
+			let ws = new WebSocket(WSS_URL);
 
-		ws.onmessage = (event) => {
-			const message = JSON.parse(event.data);
-			if (message.message === 'This URL has already been processed') {
-				//remove this request from the list
-				setRequests((prev) =>
-					prev.filter((request) => request.url !== message.redirect),
-				);
-				//remove this request from localstorage
-				localStorage.setItem(
-					'requests',
-					JSON.stringify(
-						requests.filter((request) => request.url !== message.redirect),
-					),
-				);
-				router.push(`/process/?url=${message.redirect}`);
-			} else if (message.error === 'Rate limit reached') {
-				setRequests((prev) =>
-					prev.map((request) =>
-						request.url === message.url
-							? { ...request, status: 'failed', text: message.error }
-							: request,
-					),
-				);
-			} else if (
-				message.error ===
-				'Model ugursa/FinancialBERT-Yahoo-Finance-Sentiment-Analysis is currently loading.'
-			) {
-				setRequests((prev) =>
-					prev.map((request) =>
-						request.url === message.url
-							? {
-									...request,
-									status: 'failed',
-									text: message.error + ' Please wait 20 seconds.',
-								}
-							: request,
-					),
-				);
-			} else if (message.error === 'An unexpected error occurred') {
-				setRequests((prev) =>
-					prev.map((request) =>
-						request.url === message.url
-							? { ...request, status: 'failed', text: message.error }
-							: request,
-					),
-				);
-			} else if (message.error === 'Something went wrong with huggingface') {
-				setRequests((prev) =>
-					prev.map((request) =>
-						request.url === message.url
-							? { ...request, status: 'failed', text: message.error }
-							: request,
-					),
-				);
-			} else if (message.status === 'pending') {
-				setRequests((prev) =>
-					prev.map((request) =>
-						request.url === message.url
-							? { ...request, status: 'pending' }
-							: request,
-					),
-				);
-			} else if (message.status === 'completed') {
-				setRequests((prev) =>
-					prev.map((request) =>
-						request.url === message.url
-							? { ...request, status: 'completed' }
-							: request,
-					),
-				);
-			}
-			console.log(message);
-		};
+			ws.onopen = () => {
+				console.log('Connected to WebSocket');
+				setIsConnected(true);
+			};
 
-		ws.onclose = () => {
-			setIsConnected(false);
-			console.log('WebSocket Verbindung geschlossen');
-			// set all pending requests to failed
-			setRequests((prev) =>
-				prev.map((request) =>
-					request.status === 'pending'
-						? { ...request, status: 'failed' }
-						: request,
-				),
-			);
-		};
+			ws.onmessage = (event) => {
+				const message = JSON.parse(event.data);
+				if (message.message === 'This URL has already been processed') {
+					//remove this request from the list
+					setRequests((prev) =>
+						prev.filter((request) => request.url !== message.redirect),
+					);
+					//remove this request from localstorage
+					localStorage.setItem(
+						'requests',
+						JSON.stringify(
+							requests.filter((request) => request.url !== message.redirect),
+						),
+					);
+					router.push(`/process/?url=${message.redirect}`);
+				} else if (message.error === 'Rate limit reached') {
+					setRequests((prev) =>
+						prev.map((request) =>
+							request.url === message.url
+								? { ...request, status: 'failed', text: message.error }
+								: request,
+						),
+					);
+				} else if (
+					message.error ===
+					'Model ugursa/FinancialBERT-Yahoo-Finance-Sentiment-Analysis is currently loading.'
+				) {
+					setRequests((prev) =>
+						prev.map((request) =>
+							request.url === message.url
+								? {
+										...request,
+										status: 'failed',
+										text: message.error + ' Please wait 20 seconds.',
+									}
+								: request,
+						),
+					);
+				} else if (message.error === 'An unexpected error occurred') {
+					setRequests((prev) =>
+						prev.map((request) =>
+							request.url === message.url
+								? { ...request, status: 'failed', text: message.error }
+								: request,
+						),
+					);
+				} else if (message.error === 'Something went wrong with huggingface') {
+					setRequests((prev) =>
+						prev.map((request) =>
+							request.url === message.url
+								? { ...request, status: 'failed', text: message.error }
+								: request,
+						),
+					);
+				} else if (message.status === 'pending') {
+					setRequests((prev) =>
+						prev.map((request) =>
+							request.url === message.url
+								? { ...request, status: 'pending' }
+								: request,
+						),
+					);
+				} else if (message.status === 'completed') {
+					setRequests((prev) =>
+						prev.map((request) =>
+							request.url === message.url
+								? { ...request, status: 'completed' }
+								: request,
+						),
+					);
+				}
+				console.log(message);
+			};
 
-		ws.onerror = (error) => {
-			console.error('WebSocket Fehler:', error);
-		};
+			ws.onclose = () => {
+				setIsConnected(false);
+				console.log('WebSocket Verbindung geschlossen');
+				// set all pending requests to failed
+				setRequests((prev) =>
+					prev.map((request) =>
+						request.status === 'pending'
+							? { ...request, status: 'failed' }
+							: request,
+					),
+				);
+				setTimeout(() => {
+					connectWebSocket();
+				}, 3000); // Verzögerung vor dem Wiederverbinden
+			};
 
-		setWebsocket(ws);
+			ws.onerror = (error) => {
+				console.error('WebSocket Fehler:', error);
+			};
+
+			setWebsocket(ws);
+		}
+
+		connectWebSocket();
 
 		// Bereinigung beim Unmount
 		return () => {
-			ws.close();
+			if (websocket) {
+				websocket.close();
+			}
 		};
 	}, []);
 

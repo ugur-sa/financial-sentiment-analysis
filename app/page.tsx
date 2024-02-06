@@ -1,11 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import CountdownDate from '@/components/component/CountdownDate';
 import RequestsTable from '@/components/component/RequestsTable';
 import { Requests } from '@/types/types';
 import Modal from '@/components/component/Modal';
 import { InfoIcon } from '@/components/ui/Icons';
+import { SlArrowDown } from 'react-icons/sl';
+import { useIntersection, useScrollIntoView } from '@mantine/hooks';
 
 export default function Home() {
 	const [url, setUrl] = useState('');
@@ -15,12 +17,25 @@ export default function Home() {
 	const [requests, setRequests] = useState<Requests[]>([]);
 	// States for Modal
 	const [isOpen, setIsOpen] = useState(false);
+	const modalRef = useRef<HTMLDivElement>(null);
+	const bottomRef = useRef<HTMLDivElement>(null);
+	const { ref, entry } = useIntersection({
+		root: modalRef.current,
+		threshold: 1,
+	});
 
 	const router = useRouter();
 
 	const onClose = () => {
 		setIsOpen(false);
 		localStorage.setItem('hasUserSeenModal', 'true');
+	};
+
+	const scrollToBottom = () => {
+		// Sicherstellen, dass bottomRef.current existiert, bevor scrollIntoView aufgerufen wird
+		if (bottomRef.current) {
+			bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
 	};
 
 	useEffect(() => {
@@ -137,7 +152,6 @@ export default function Home() {
 						),
 					);
 				}
-				console.log(message);
 			};
 
 			ws.onclose = () => {
@@ -222,7 +236,21 @@ export default function Home() {
 	return (
 		<>
 			<Modal isOpen={isOpen} onClose={onClose}>
-				<div className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-10 shadow-xl lg:h-[800px] lg:w-1/2">
+				<div
+					ref={modalRef}
+					className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-10 shadow-xl lg:h-[800px] lg:w-1/2"
+				>
+					{!entry?.isIntersecting && (
+						<div className="absolute bottom-[76px] right-1/2 hidden translate-x-1/2 lg:block">
+							<SlArrowDown
+								className="animate-bounce cursor-pointer rounded-full p-1 backdrop-blur-sm"
+								size={30}
+								onClick={() => {
+									scrollToBottom();
+								}}
+							/>
+						</div>
+					)}
 					<span className="text-xl font-semibold">Sehr geehrter Nutzer</span>
 					<p className="mt-4">
 						Willkommen auf unserer Plattform. Bitte geben Sie einen Link ein,
@@ -250,6 +278,8 @@ export default function Home() {
 					>
 						Verstanden
 					</button>
+					<div ref={ref}></div>
+					<div ref={bottomRef}></div>
 				</div>
 			</Modal>
 

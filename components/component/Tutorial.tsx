@@ -154,7 +154,8 @@ const Tutorial = ({
 				ein. <br />
 			</p>
 			<p className="">
-				3. Klicken Sie auf "Bestätigen" um die Sentiment-Analyse zu starten.
+				3. Klicken Sie auf &quot;Bestätigen&quot; um die Sentiment-Analyse zu
+				starten.
 			</p>
 			<p className="">
 				4. Der Status der Verarbeitung wird in Echtzeit angezeigt. Sie können
@@ -173,7 +174,7 @@ const Tutorial = ({
 				</span>
 				) angezeigt werden. Durch <i>hovern</i> über das rote Kreuz können Sie
 				den Fehler einsehen. Um die Verarbeitung erneut zu starten, geben Sie
-				den Link erneut ein und klicken Sie auf "Bestätigen".
+				den Link erneut ein und klicken Sie auf &quot;Bestätigen&quot;.
 			</p>
 			<p className="mt-4">
 				Ein häufiger Fehler der auftreten kann, ist dass die Inference API von
@@ -193,7 +194,8 @@ const Tutorial = ({
 				wird. <br />
 				Dabei wird das gesamte Sentiment des Artikels, das gewichtete und die
 				durchschnittlichen Scores der Sätze und die Anzahl der Sätze in den
-				Kategorien "bullish", "neutral" und "bearish" angezeigt. <br />
+				Kategorien &quot;bullish&quot;, &quot;neutral&quot; und
+				&quot;bearish&quot; angezeigt. <br />
 				Das gesamte Sentiment wird anhand des gewichteten Sentiments angezeigt.
 				Den Code für die Rechnung des Sentiments kann man hier finden:{' '}
 				<a

@@ -18,6 +18,6 @@ export type ClassifiedText = {
 
 export type Requests = {
 	url: string;
-	status: string;
+	status: 'pending' | 'completed' | 'failed';
 	text?: string;
 };

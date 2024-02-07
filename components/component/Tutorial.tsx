@@ -53,10 +53,10 @@ const Tutorial = ({
 	return (
 		<div
 			ref={modalRef}
-			className="no-scrollbar flex h-[500px] w-full flex-col overflow-y-scroll rounded-lg bg-white p-5 shadow-xl lg:h-[800px] lg:w-[1000px] lg:p-10"
+			className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-5 shadow-xl lg:h-[800px] lg:w-[1000px] lg:p-10"
 		>
 			{!entry?.isIntersecting && (
-				<div className="fixed bottom-[32%] left-1/2 translate-x-1/2 lg:bottom-[20%]">
+				<div className="absolute bottom-20 right-1/2 translate-x-1/2">
 					<FaArrowDown
 						className="animate-bounce cursor-pointer rounded-full bg-gray-400 bg-opacity-30 p-1"
 						size={30}

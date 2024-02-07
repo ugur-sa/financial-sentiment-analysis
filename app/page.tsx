@@ -3,20 +3,22 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import CountdownDate from '@/components/component/CountdownDate';
 import RequestsTable from '@/components/component/RequestsTable';
-import { Requests } from '@/types/types';
 import Modal from '@/components/component/Modal';
 import { InfoIcon } from '@/components/ui/Icons';
 import { useIntersection } from '@mantine/hooks';
 import Tutorial from '@/components/component/Tutorial';
+import { useModalStatus } from '@/hooks/useModalStatus';
+import { usePersistedRequests } from '@/hooks/usePersistedRequests';
 
 export default function Home() {
 	const [url, setUrl] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 	const [isConnected, setIsConnected] = useState(false);
 	const [websocket, setWebsocket] = useState<WebSocket | null>(null);
-	const [requests, setRequests] = useState<Requests[]>([]);
-	// States for Modal
-	const [isOpen, setIsOpen] = useState(false);
+	const [requests, setRequests] = usePersistedRequests([]);
+	// State for Modal
+	const [isOpen, setIsOpen] = useModalStatus(false);
+	// Ref for Intersection Observer
 	const modalRef = useRef<HTMLDivElement>(null);
 	const bottomRef = useRef<HTMLDivElement>(null);
 	const { ref, entry } = useIntersection({
@@ -37,22 +39,6 @@ export default function Home() {
 			bottomRef.current.scrollIntoView({ behavior: 'smooth' });
 		}
 	};
-
-	useEffect(() => {
-		const initialRequests = localStorage.getItem('requests');
-		const hasUserSeenModal = localStorage.getItem('hasUserSeenModal');
-
-		if (!hasUserSeenModal) {
-			setIsOpen(true);
-		}
-		if (initialRequests) setRequests(JSON.parse(initialRequests));
-	}, []);
-
-	useEffect(() => {
-		if (requests.length > 0) {
-			localStorage.setItem('requests', JSON.stringify(requests));
-		}
-	}, [requests]);
 
 	const checkUrl = (inputUrl: string) => {
 		return inputUrl.includes('/news/') && !inputUrl.includes('/video/');
@@ -235,7 +221,7 @@ export default function Home() {
 
 	return (
 		<>
-			<Modal isOpen={isOpen} onClose={onClose}>
+			<Modal isOpen={isOpen}>
 				<Tutorial
 					bottomRef={bottomRef}
 					ref1={ref}

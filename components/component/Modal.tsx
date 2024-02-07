@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface ModalProps {
 	isOpen: boolean;
-	onClose: () => void;
 	children?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
-	const handleClose = () => {
-		onClose();
-	};
-
+const Modal: React.FC<ModalProps> = ({ isOpen, children }) => {
 	return (
 		<>
 			{isOpen && (

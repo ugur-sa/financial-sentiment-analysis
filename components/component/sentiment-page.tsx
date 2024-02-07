@@ -63,7 +63,7 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
 				</div>
 			</div>
 			<div className="xl:absolute xl:top-0">
-				<Link href="/">Go back</Link>
+				<Link href="/">Startseite</Link>
 			</div>
 		</>
 	);

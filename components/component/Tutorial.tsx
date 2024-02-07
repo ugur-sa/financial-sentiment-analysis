@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaArrowDown } from 'react-icons/fa6';
 import { GoLinkExternal } from 'react-icons/go';
 import { FailedIcon, InfoIcon, SuccessIcon } from '../ui/Icons';
@@ -21,6 +21,35 @@ const Tutorial = ({
 	entry,
 	scrollToBottom,
 }: TutorialProps) => {
+	const videoRef = React.useRef<HTMLVideoElement>(null);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const entry = entries[0];
+				if (entry.isIntersecting) {
+					videoRef.current?.play();
+				} else {
+					videoRef.current?.pause();
+				}
+			},
+			{
+				threshold: 0.5, // Konfiguriere dies je nach Bedarf
+			},
+		);
+
+		if (videoRef.current) {
+			observer.observe(videoRef.current);
+		}
+
+		// Cleanup beim Unmount
+		return () => {
+			if (videoRef.current) {
+				observer.unobserve(videoRef.current);
+			}
+		};
+	}, []);
+
 	return (
 		<div
 			ref={modalRef}
@@ -176,6 +205,13 @@ const Tutorial = ({
 				den Fehler einsehen. Um die Verarbeitung erneut zu starten, geben Sie
 				den Link erneut ein und klicken Sie auf &quot;Bestätigen&quot;.
 			</p>
+			<video
+				src="videos/tutorial.mp4"
+				autoPlay
+				loop
+				className="border border-black"
+				ref={videoRef}
+			/>
 			<p className="mt-4">
 				Ein häufiger Fehler der auftreten kann, ist dass die Inference API von
 				Huggingface erst gestartet werden muss, da nur das kostenlose Kontingent

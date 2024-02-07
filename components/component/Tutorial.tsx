@@ -24,7 +24,7 @@ const Tutorial = ({
 	return (
 		<div
 			ref={modalRef}
-			className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-10 shadow-xl lg:h-[800px] lg:w-1/2"
+			className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-5 shadow-xl lg:h-[800px] lg:w-[1000px] lg:p-10"
 		>
 			{!entry?.isIntersecting && (
 				<div className="absolute bottom-24 right-1/2 hidden translate-x-1/2 lg:block">
@@ -37,16 +37,21 @@ const Tutorial = ({
 					/>
 				</div>
 			)}
-			<span className="flex items-center text-xl font-semibold">
+			<span className="text-xl font-semibold">
 				Willkommen zur Testapplikation meines{' '}
 				<a
-					className="ml-1 inline-flex items-center text-blue-500 underline hover:text-blue-700"
+					className="inline-flex items-center text-blue-500 underline hover:text-blue-700"
 					href="https://huggingface.co/ugursa/FinancialBERT-Yahoo-Finance-Sentiment-Analysis"
 					target="_blank"
 				>
 					fine-tuned BERT-Modells <GoLinkExternal className="ml-1" />
 				</a>
 			</span>
+			<p className="text-sm">
+				<span className="font-bold text-red-500">Hinweis:</span> Wie oben links
+				zu entnehmen ist, wird dieser Seite nach dem 01.06.2024 ablaufen und
+				nicht mehr verfügbar sein.
+			</p>
 			<h1 className="mt-4 text-lg font-semibold">Einführung</h1>
 			<p className="mt-4">
 				Diese Applikation wurde entwickelt, um die Sentiment-Analyse von
@@ -57,8 +62,15 @@ const Tutorial = ({
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Über das Modell</h1>
 			<p className="mt-4">
-				Das Modell wurde mit meinem selbst gesammelten Datensatz von Sätzen aus
-				Yahoo Finance Artikeln trainiert. <br />
+				Das Modell wurde mit meinem selbst gesammelten{' '}
+				<a
+					className="inline-flex items-center text-blue-500"
+					href="https://huggingface.co/datasets/ugursa/Yahoo-Finance-News-Sentences"
+					target="_blank"
+				>
+					Datensatz <GoLinkExternal className="ml-1" size={12} />
+				</a>{' '}
+				von Sätzen aus Yahoo Finance Artikeln trainiert. <br />
 				Die Daten wurden mit mehrenen Python Skripts und Jupyter Notebooks
 				gesammelt und aufbereitet und anschließend mit{' '}
 				<a
@@ -86,11 +98,56 @@ const Tutorial = ({
 					<GoLinkExternal className="ml-1" size={12} />
 				</a>
 			</p>
+			<h1 className="mt-4 text-lg font-semibold">Technische Details:</h1>
+			<img src="images/aws_diagram_2.png" />
+			<p className="mt-4">
+				Diese App ist sehr simpel aufgebaut. Im Frontend läuft eine Next.js
+				Applikation die auf{' '}
+				<a
+					className="inline-flex items-center text-blue-500"
+					href="https://www.vercel.com"
+					target="_blank"
+				>
+					Vercel
+					<GoLinkExternal className="ml-1" size={12} />{' '}
+				</a>{' '}
+				gehostet wird. <br />
+				Ursprünglich war das Backend ein einfacher Python Flask Server, der die
+				URL entgegen nimmt, den Text aus dem Artikel extrahiert, den Text in
+				Sätze aufteilt und dann die Sätze an die Inference API von Huggingface
+				schickt. <br />
+				Bei so einem einfachen Skript ist es einfacher einen Serverless Ansatz
+				mit AWS Lambda zu wählen. AWS Lambda ist bis 1 Millionen Anfragen pro
+				Monat kostenlos und man muss keine eigene Serverinstanz verwalten. Die
+				Verbindung zu dieser Lambda Funktion erfolgt über einen weiteren AWS
+				Service namens API Gateway. Dieser Service ist als Websocket
+				konfiguriert, sodass die Lambda Funktion auf Anfragen reagieren kann. So
+				gelingt die Echtzeit Kommunikation zwischen Frontend und Backend. <br />
+				Nachdem die Verarbeitung abgeschlossen ist, legt diese Lambda Funktion
+				das Ergebnis in einer DynamoDB Tabelle ab. <br />
+				Danach kann der Nutzer die Ergebnisse über eine weitere API abrufen.{' '}
+				<br />
+				Ihre bisherigen Anfragen können Sie in der Tabelle unten einsehen. Diese
+				werden in Localstorage gespeichert und sind somit nur für Sie auch nach
+				dem Schließen des Tabs verfügbar (da die Ergebnisse in der Datenbank
+				gespeichert sind, können Sie auch den Link kopieren und weiterschicken,
+				ohne dass es einer erneuten Verarbeitung bedarf). Wenn Sie einen Link
+				eingeben, der schon verarbeitet wurde, dann werden Sie nach einer kurzen
+				Verzögerung zur Ergbenisseite weitergeleitet.
+			</p>
 			<h1 className="mt-4 text-lg font-semibold">Wie man Tests durchführt</h1>
 			<p className="mt-4">
 				1. Gehen Sie auf die Webseite von{' '}
-				<a href="finance.yahoo.com">Yahoo Finance</a> und suchen Sie nach einem
-				Artikel aus der Kategorie "Business". <br />
+				<a
+					className="inline-flex items-center text-blue-500"
+					href="https://finance.yahoo.com/news"
+					target="_blank"
+				>
+					Yahoo Finance
+					<GoLinkExternal className="ml-1" size={12} />{' '}
+				</a>{' '}
+				und suchen Sie nach einem Artikel aus der Kategorie
+				&quot;Business&quot;. <br />
 			</p>
 			<p className="">
 				2. Kopieren Sie den Link des Artikels und fügen Sie ihn in das Textfeld
@@ -147,6 +204,53 @@ const Tutorial = ({
 					<GoLinkExternal className="ml-1" size={12} />
 				</a>
 			</p>
+			<h1 className="mt-4 text-lg font-semibold">
+				Bekannte Fehler und Restriktionen
+			</h1>
+			<p className="mt-4">
+				Es gibt einige bekannte Fehler und Restriktionen, die in der Applikation
+				auftreten können:
+			</p>
+			<ul className="mt-4 list-inside list-disc">
+				<li>
+					Starten der kostenlosen Inference API von Huggingface kann bis zu 20
+					Sekunden dauern.
+					<img
+						src="images/api_starting_error.png"
+						className="rounded-md border border-black"
+						alt="api starting please wait error"
+					/>
+				</li>
+				<li>
+					Manchmal schlägt die Klassifizierung fehl. Der Grund dafür ist
+					unbekannt, da die API von Huggingface gemanaged wird.
+					<img
+						src="images/something_went_wrong_huggingface.png"
+						alt="something went wrong with huggingface"
+						className="rounded-md border border-black"
+						width={750}
+					/>
+				</li>
+				<li>
+					Da die Inference API kostenlos ist, hat sie ein Rate Limit. Wenn
+					dieses Rate Limit erreicht wurde, schlagen neue Anfragen fehl und
+					zeigen dies auch als Fehler an. Das Rate Limit wird zum Anfang jeder
+					Stunde zurückgesetzt.
+					<img
+						src="images/ratelimit.png"
+						alt="rate limit"
+						className="rounded-md border border-black"
+						width={750}
+					/>
+				</li>
+				<li>
+					Es können nur Links von Yahoo Finance Artikeln aus der Kategorie
+					&quot;Business&quot; verarbeitet werden. Das liegt daran, dass das
+					Scraping-Skript zur Zeit nur daran angepasst ist. Außerdem werden nur
+					Artikel die /news/ im Link haben verarbeitet wegen dem gleichen Grund.
+				</li>
+			</ul>
+
 			<h1 className="mt-4 text-lg font-semibold">Feedback</h1>
 			<p className="mt-4">
 				Wenn Sie Feedback haben können Sie es in das Textfeld eintragen und
@@ -160,7 +264,7 @@ const Tutorial = ({
 				/>
 				<button
 					type="submit"
-					className="w-full rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
+					className="w-32	 rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
 				>
 					Absenden
 				</button>
@@ -180,11 +284,6 @@ const Tutorial = ({
 				</span>{' '}
 				oben rechts klicken.
 			</p>
-
-			{/* <p className="mt-4">
-				<strong>Technische Details:</strong>
-			</p>
-			<img src="images/aws_diagram_2.png" /> */}
 
 			<button
 				onClick={onClose}

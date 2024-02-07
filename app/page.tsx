@@ -6,8 +6,8 @@ import RequestsTable from '@/components/component/RequestsTable';
 import { Requests } from '@/types/types';
 import Modal from '@/components/component/Modal';
 import { InfoIcon } from '@/components/ui/Icons';
-import { SlArrowDown } from 'react-icons/sl';
-import { useIntersection, useScrollIntoView } from '@mantine/hooks';
+import { useIntersection } from '@mantine/hooks';
+import Tutorial from '@/components/component/Tutorial';
 
 export default function Home() {
 	const [url, setUrl] = useState('');
@@ -236,51 +236,14 @@ export default function Home() {
 	return (
 		<>
 			<Modal isOpen={isOpen} onClose={onClose}>
-				<div
-					ref={modalRef}
-					className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-10 shadow-xl lg:h-[800px] lg:w-1/2"
-				>
-					{!entry?.isIntersecting && (
-						<div className="absolute bottom-[76px] right-1/2 hidden translate-x-1/2 lg:block">
-							<SlArrowDown
-								className="animate-bounce cursor-pointer rounded-full p-1 backdrop-blur-sm"
-								size={30}
-								onClick={() => {
-									scrollToBottom();
-								}}
-							/>
-						</div>
-					)}
-					<span className="text-xl font-semibold">Sehr geehrter Nutzer</span>
-					<p className="mt-4">
-						Willkommen auf unserer Plattform. Bitte geben Sie einen Link ein,
-						der von der Kategorie &quot;Business&quot; ist. Die Plattform wird
-						den Link verarbeiten und Ihnen die Ergebnisse anzeigen.
-					</p>
-					<p className="mt-4">
-						Bitte beachten Sie, dass die Verarbeitung des Links einige Zeit in
-						Anspruch nehmen kann.
-					</p>
-					<p className="mt-4">
-						Wenn Sie Fragen haben, wenden Sie sich bitte an{' '}
-						<a href="mailto:ugur.sadiklar@stud.hn.de">
-							ugur.sadiklar@stud.hn.de
-						</a>
-					</p>
-					<p className="mt-4">
-						<strong>Technische Details:</strong>
-					</p>
-					<img src="images/aws_diagram_2.png" />
-
-					<button
-						onClick={onClose}
-						className="mt-10 w-full rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
-					>
-						Verstanden
-					</button>
-					<div ref={ref}></div>
-					<div ref={bottomRef}></div>
-				</div>
+				<Tutorial
+					bottomRef={bottomRef}
+					ref1={ref}
+					modalRef={modalRef}
+					entry={entry!}
+					onClose={onClose}
+					scrollToBottom={scrollToBottom}
+				/>
 			</Modal>
 
 			<header className="mb-20">

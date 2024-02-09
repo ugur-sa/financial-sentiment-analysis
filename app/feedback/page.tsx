@@ -1,8 +1,7 @@
+'use server';
 import React from 'react';
-import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 async function getFeedback() {
 	const feedback = await prisma.feedback.findMany();
@@ -17,7 +16,6 @@ async function deleteFeedback(id: string) {
 	});
 }
 
-export const revalidate = 1;
 export default async function FeedbackPage() {
 	const feedback = await getFeedback();
 

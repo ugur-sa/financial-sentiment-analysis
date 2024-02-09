@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FaArrowDown } from 'react-icons/fa6';
 import { GoLinkExternal } from 'react-icons/go';
 import { FailedIcon, InfoIcon, SuccessIcon } from '../ui/Icons';

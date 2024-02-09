@@ -17,7 +17,7 @@ export default async function FeedbackPage() {
 			<div className="xl:absolute xl:top-0">
 				<Link href="/">Startseite</Link>
 			</div>
-			<div className="flex h-full w-full items-center justify-center">
+			<div className="flex h-dvh w-dvw items-center justify-center">
 				<div className="no-scrollbar h-full w-full overflow-y-scroll border-2 xl:w-1/3">
 					{feedback.map((f) => (
 						<div

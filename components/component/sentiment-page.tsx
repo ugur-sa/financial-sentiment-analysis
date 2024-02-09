@@ -120,7 +120,7 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
 					</Card>
 				</div>
 				{/*-------------------------------------------------------------------*/}
-				<div className="no-scrollbar flex h-full w-full flex-col items-center gap-2 overflow-scroll border border-black p-3 xl:w-3/5">
+				<div className="no-scrollbar flex h-full w-full flex-col items-center gap-2 overflow-scroll border border-l-2 p-3 xl:w-3/5">
 					{classifiedText.sentences.map((sentence: any, i: number) => (
 						<div
 							key={i}

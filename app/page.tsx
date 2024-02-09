@@ -156,7 +156,7 @@ export default function Home() {
 				);
 				setTimeout(() => {
 					connectWebSocket();
-				}, 1000); // Verzögerung vor dem Wiederverbinden
+				}, 100); // Verzögerung vor dem Wiederverbinden
 			};
 
 			ws.onerror = (error) => {

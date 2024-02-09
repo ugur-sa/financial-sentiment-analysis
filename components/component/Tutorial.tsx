@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
 import { FaArrowDown } from 'react-icons/fa6';
 import { GoLinkExternal } from 'react-icons/go';
-import { FailedIcon, InfoIcon, SuccessIcon } from '../ui/Icons';
+import {
+	CheckIcon,
+	FailedIcon,
+	InfoIcon,
+	SuccessIcon,
+	XCircleIcon,
+} from '../ui/Icons';
 import TextareaAutosize from 'react-textarea-autosize';
 import { writeFeedback } from '@/app/actions/writeFeedback';
 import { useToast } from '@/components/ui/use-toast';
@@ -216,13 +222,13 @@ const Tutorial = ({
 			<p className="">
 				5. Wenn die Tabelle ein grünes Häkchen (
 				<span className="inline-flex justify-center">
-					<SuccessIcon />
+					<CheckIcon className="text-green-500" />
 				</span>
 				) anzeigt, ist die Verarbeitung abgeschlossen und Sie können die
 				Ergebnisse einsehen. Manchmal kann es zu Fehlern kommen, die durch ein
 				rotes Kreuz (
 				<span className="inline-flex justify-center">
-					<FailedIcon />
+					<XCircleIcon className="text-red-500" />
 				</span>
 				) angezeigt werden. Durch <i>hovern</i> über das rote Kreuz können Sie
 				den Fehler einsehen. Um die Verarbeitung erneut zu starten, geben Sie

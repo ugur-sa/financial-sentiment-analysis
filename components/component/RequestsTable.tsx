@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import FadeLoader from 'react-spinners/FadeLoader';
-import { SuccessIcon, FailedIcon } from '../ui/Icons';
+import { SuccessIcon, FailedIcon, CheckIcon, XCircleIcon } from '../ui/Icons';
 import { Requests } from '@/types/types';
 import {
 	Tooltip,
@@ -55,7 +55,7 @@ const RequestsTable: React.FC<Props> = (props) => {
 											<Tooltip>
 												<TooltipTrigger>
 													{request.status === 'completed' ? (
-														<SuccessIcon />
+														<CheckIcon className="text-green-500" />
 													) : request.status === 'pending' ? (
 														<div className="sweet-loading ml-1">
 															<FadeLoader
@@ -68,7 +68,7 @@ const RequestsTable: React.FC<Props> = (props) => {
 															/>
 														</div>
 													) : (
-														<FailedIcon />
+														<XCircleIcon className="text-red-500" />
 													)}
 												</TooltipTrigger>
 												<TooltipContent>

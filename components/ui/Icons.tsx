@@ -73,3 +73,44 @@ export const InfoIcon = (props: SVGProps<SVGSVGElement>) => (
 		<path d="M24 4C12.972 4 4 12.972 4 24s8.972 20 20 20 20-8.972 20-20S35.028 4 24 4zm0 3c9.407 0 17 7.593 17 17s-7.593 17-17 17S7 33.407 7 24 14.593 7 24 7zm0 7a2 2 0 0 0 0 4 2 2 0 0 0 0-4zm-.023 6.979A1.5 1.5 0 0 0 22.5 22.5v11a1.5 1.5 0 1 0 3 0v-11a1.5 1.5 0 0 0-1.523-1.521z" />
 	</svg>
 );
+
+export function CheckIcon(props: SVGProps<SVGSVGElement>) {
+	return (
+		<svg
+			{...props}
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+			<polyline points="22 4 12 14.01 9 11.01" />
+		</svg>
+	);
+}
+
+export function XCircleIcon(props: SVGProps<SVGSVGElement>) {
+	return (
+		<svg
+			{...props}
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<circle cx="12" cy="12" r="10" />
+			<path d="m15 9-6 6" />
+			<path d="m9 9 6 6" />
+		</svg>
+	);
+}

@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 export async function writeFeedback(fullName: string, feedbackText: string) {
 	await prisma.feedback.create({
@@ -9,4 +10,5 @@ export async function writeFeedback(fullName: string, feedbackText: string) {
 			message: feedbackText,
 		},
 	});
+	revalidatePath('/feedback');
 }

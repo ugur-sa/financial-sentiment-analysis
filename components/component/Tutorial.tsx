@@ -4,7 +4,6 @@ import { GoLinkExternal } from 'react-icons/go';
 import { FailedIcon, InfoIcon, SuccessIcon } from '../ui/Icons';
 import TextareaAutosize from 'react-textarea-autosize';
 import { writeFeedback } from '@/app/actions/writeFeedback';
-import { revalidatePath } from 'next/cache';
 
 interface TutorialProps {
 	onClose: () => void;
@@ -63,7 +62,6 @@ const Tutorial = ({
 		} catch (error) {
 			console.error('Feedback konnte nicht gesendet werden.');
 		} finally {
-			revalidatePath('/feedback');
 			setFullName('');
 			setFeedbackText('');
 			setShowThanks(true);

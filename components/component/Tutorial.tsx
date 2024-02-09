@@ -66,6 +66,10 @@ const Tutorial = ({
 		} finally {
 			setFullName('');
 			setFeedbackText('');
+			toast({
+				title: 'Erfolgreich',
+				description: 'Ihr Feedback wurde eingereicht. Vielen Dank!',
+			});
 		}
 	}
 
@@ -334,12 +338,6 @@ const Tutorial = ({
 					disabled={!fullName || !feedbackText}
 					type="submit"
 					className="w-32 rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
-					onClick={() => {
-						toast({
-							title: 'Erfolgreich',
-							description: 'Ihr Feedback wurde eingereicht. Vielen Dank!',
-						});
-					}}
 					variant="outline"
 				>
 					Absenden

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { FaArrowDown } from 'react-icons/fa6';
 import { GoLinkExternal } from 'react-icons/go';
 import { FailedIcon, InfoIcon, SuccessIcon } from '../ui/Icons';
 import TextareaAutosize from 'react-textarea-autosize';
+import { writeFeedback } from '@/app/actions/writeFeedback';
 
 interface TutorialProps {
 	onClose: () => void;
@@ -22,6 +23,9 @@ const Tutorial = ({
 	scrollToBottom,
 }: TutorialProps) => {
 	const videoRef = React.useRef<HTMLVideoElement>(null);
+	const [fullName, setFullName] = React.useState('');
+	const [feedbackText, setFeedbackText] = React.useState('');
+	const [showThanks, setShowThanks] = React.useState(false);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -49,6 +53,23 @@ const Tutorial = ({
 			}
 		};
 	}, []);
+
+	function handleFeedbackSubmit(formData: FormData) {
+		const fullName = formData.get('fullName') as string;
+		const feedbackText = formData.get('feedbackText') as string;
+		try {
+			writeFeedback(fullName, feedbackText);
+		} catch (error) {
+			console.error('Feedback konnte nicht gesendet werden.');
+		} finally {
+			setFullName('');
+			setFeedbackText('');
+			setShowThanks(true);
+			setTimeout(() => {
+				setShowThanks(false);
+			}, 3000);
+		}
+	}
 
 	return (
 		<div
@@ -295,14 +316,30 @@ const Tutorial = ({
 				absenden.
 			</p>
 
-			<form action="">
+			<form action={handleFeedbackSubmit}>
 				<TextareaAutosize
 					className="min-h-24 w-full rounded-lg border p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zinc-800"
-					placeholder="Funktioniert gerade noch nicht ..."
+					placeholder="Ihr Feedback ..."
+					name="feedbackText"
+					value={fullName}
+					onChange={(e) => setFullName(e.currentTarget.value)}
 				/>
+				<input
+					className={`${!showThanks && 'mb-4'} focus:ring-zinc-800" w-full rounded-lg border p-2 focus:border-transparent focus:outline-none focus:ring-2`}
+					type="text"
+					placeholder="Ihr Name"
+					name="fullName"
+					value={feedbackText}
+					onChange={(e) => setFeedbackText(e.currentTarget.value)}
+				/>
+				{showThanks && (
+					<p className="mb-4 text-sm text-green-500">
+						Vielen Dank für Ihr Feedback.
+					</p>
+				)}
 				<button
 					type="submit"
-					className="w-32	 rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
+					className="w-32 rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
 				>
 					Absenden
 				</button>

@@ -66,7 +66,7 @@ export default function Home() {
 			let ws = new WebSocket(WSS_URL);
 
 			ws.onopen = () => {
-				console.log('Connected to WebSocket');
+				// console.log('Connected to WebSocket');
 				setIsConnected(true);
 			};
 
@@ -145,7 +145,7 @@ export default function Home() {
 
 			ws.onclose = () => {
 				setIsConnected(false);
-				console.log('WebSocket Verbindung geschlossen');
+				// console.log('WebSocket Verbindung geschlossen');
 				// set all pending requests to failed
 				setRequests((prev) =>
 					prev.map((request) =>

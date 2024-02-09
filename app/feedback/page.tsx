@@ -17,6 +17,7 @@ async function deleteFeedback(id: string) {
 	});
 }
 
+export const revalidate = 1;
 export default async function FeedbackPage() {
 	const feedback = await getFeedback();
 

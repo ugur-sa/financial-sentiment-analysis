@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/card';
 
 import Link from 'next/link';
+import ProgressBar from '@/app/process/ProgessBar';
 interface SentimentPageProps {
 	classifiedText: ClassifiedText;
 }
@@ -35,7 +36,7 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
 	return (
 		<>
 			<div className="flex h-dvh w-dvw flex-col-reverse xl:flex-row">
-				<div className="grid h-full w-full grid-cols-2 place-items-center gap-2 p-12 xl:w-2/5">
+				<div className="no-scrollbar grid w-full grid-cols-2 place-items-center gap-2 overflow-y-scroll p-12 xl:w-2/5">
 					<Card className="h-48 w-full lg:w-11/12">
 						<CardHeader>
 							<CardTitle className="text-center text-lg lg:text-2xl">
@@ -57,6 +58,11 @@ export function SentimentPage({ classifiedText }: SentimentPageProps) {
 						<CardContent className="text-center text-xl font-bold lg:text-4xl">
 							{classifiedText['Weighted Sentiment'].toFixed(3)}
 						</CardContent>
+						<CardFooter>
+							<ProgressBar
+								value={+classifiedText['Weighted Sentiment'].toFixed(3)}
+							/>
+						</CardFooter>
 					</Card>
 					<Card className="h-48 w-full lg:w-11/12">
 						<CardHeader>

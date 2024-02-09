@@ -4,6 +4,8 @@ import { GoLinkExternal } from 'react-icons/go';
 import { FailedIcon, InfoIcon, SuccessIcon } from '../ui/Icons';
 import TextareaAutosize from 'react-textarea-autosize';
 import { writeFeedback } from '@/app/actions/writeFeedback';
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '../ui/button';
 
 interface TutorialProps {
 	onClose: () => void;
@@ -25,7 +27,7 @@ const Tutorial = ({
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [fullName, setFullName] = React.useState('');
 	const [feedbackText, setFeedbackText] = React.useState('');
-	const [showThanks, setShowThanks] = React.useState(false);
+	const { toast } = useToast();
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -64,10 +66,6 @@ const Tutorial = ({
 		} finally {
 			setFullName('');
 			setFeedbackText('');
-			setShowThanks(true);
-			setTimeout(() => {
-				setShowThanks(false);
-			}, 3000);
 		}
 	}
 
@@ -325,24 +323,27 @@ const Tutorial = ({
 					onChange={(e) => setFullName(e.currentTarget.value)}
 				/>
 				<input
-					className={`${!showThanks && 'mb-4'} focus:ring-zinc-800" w-full rounded-lg border p-2 focus:border-transparent focus:outline-none focus:ring-2`}
+					className={`focus:ring-zinc-800" mb-4 w-full rounded-lg border p-2 focus:border-transparent focus:outline-none focus:ring-2`}
 					type="text"
 					placeholder="Ihr Name"
 					name="fullName"
 					value={feedbackText}
 					onChange={(e) => setFeedbackText(e.currentTarget.value)}
 				/>
-				{showThanks && (
-					<p className="mb-4 text-sm text-green-500">
-						Vielen Dank für Ihr Feedback.
-					</p>
-				)}
-				<button
+				<Button
+					disabled={!fullName || !feedbackText}
 					type="submit"
 					className="w-32 rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
+					onClick={() => {
+						toast({
+							title: 'Erfolgreich',
+							description: 'Ihr Feedback wurde eingereicht. Vielen Dank!',
+						});
+					}}
+					variant="outline"
 				>
 					Absenden
-				</button>
+				</Button>
 			</form>
 			<h1 className="mt-4 text-lg font-semibold">Technische Unterstützung</h1>
 			<p className="mt-4">

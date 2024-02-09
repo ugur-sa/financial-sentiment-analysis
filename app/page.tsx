@@ -9,6 +9,8 @@ import { useIntersection } from '@mantine/hooks';
 import Tutorial from '@/components/component/Tutorial';
 import { useModalStatus } from '@/hooks/useModalStatus';
 import { usePersistedRequests } from '@/hooks/usePersistedRequests';
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
 	const [url, setUrl] = useState('');
@@ -16,6 +18,7 @@ export default function Home() {
 	const [isConnected, setIsConnected] = useState(false);
 	const [websocket, setWebsocket] = useState<WebSocket | null>(null);
 	const [requests, setRequests] = usePersistedRequests([]);
+	const { toast } = useToast();
 	// State for Modal
 	const [isOpen, setIsOpen] = useModalStatus(false);
 	// Ref for Intersection Observer
@@ -280,13 +283,20 @@ export default function Home() {
 							{errorMessage && (
 								<p className="text-sm text-red-500">{errorMessage}</p>
 							)}
-							<button
-								onClick={() => sendUrlToWebSocket(url)}
+							<Button
+								onClick={() => {
+									sendUrlToWebSocket(url);
+									toast({
+										title: 'Erfolgreich',
+										description: 'Ihre Anfrage wurde erfolgreich gesendet.',
+									});
+								}}
 								className={`mt-2 w-full rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800 ${errorMessage || !url ? 'cursor-not-allowed opacity-50' : ''}`}
 								disabled={!!errorMessage || !url}
+								variant="outline"
 							>
 								Bestätigen
-							</button>
+							</Button>
 						</div>
 					</div>
 					<RequestsTable requests={requests} />

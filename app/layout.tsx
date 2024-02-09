@@ -1,24 +1,24 @@
-import type { Metadata } from 'next'
-import './globals.css'
+import type { Metadata } from 'next';
+import './globals.css';
 import { GeistSans } from 'geist/font/sans';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Yahoo Finance Sentiment Analysis',
-  description: 'Yahoo Finance Sentiment Analysis',
-}
+	title: 'Yahoo Finance Sentiment Analysis',
+	description: 'Yahoo Finance Sentiment Analysis',
+};
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" className={GeistSans.className}>
-      <body>
-        {children}
-      </body>
-    </html>
-  )
+	return (
+		<html lang="en" className={GeistSans.className}>
+			<body>
+				<main>{children}</main>
+				<Toaster />
+			</body>
+		</html>
+	);
 }

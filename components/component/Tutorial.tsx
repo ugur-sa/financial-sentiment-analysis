@@ -12,6 +12,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { writeFeedback } from '@/app/actions/writeFeedback';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '../ui/button';
+import Image from 'next/image';
 
 interface TutorialProps {
 	onClose: () => void;
@@ -36,13 +37,14 @@ const Tutorial = ({
 	const { toast } = useToast();
 
 	useEffect(() => {
+		const videoRefCurrent = videoRef.current!;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				const entry = entries[0];
 				if (entry.isIntersecting) {
-					videoRef.current?.play();
+					videoRefCurrent.play();
 				} else {
-					videoRef.current?.pause();
+					videoRefCurrent.pause();
 				}
 			},
 			{
@@ -50,14 +52,14 @@ const Tutorial = ({
 			},
 		);
 
-		if (videoRef.current) {
-			observer.observe(videoRef.current);
+		if (videoRefCurrent) {
+			observer.observe(videoRefCurrent);
 		}
 
 		// Cleanup beim Unmount
 		return () => {
-			if (videoRef.current) {
-				observer.unobserve(videoRef.current);
+			if (videoRefCurrent) {
+				observer.unobserve(videoRefCurrent);
 			}
 		};
 	}, []);
@@ -84,7 +86,7 @@ const Tutorial = ({
 			ref={modalRef}
 			className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-5 shadow-xl lg:h-[800px] lg:w-[1000px] lg:p-10"
 		>
-			{!entry?.isIntersecting && (
+			{/* {!entry?.isIntersecting && (
 				<div className="absolute bottom-20 right-1/2 translate-x-1/2">
 					<FaArrowDown
 						className="animate-bounce cursor-pointer rounded-full bg-gray-400 bg-opacity-30 p-1"
@@ -94,7 +96,7 @@ const Tutorial = ({
 						}}
 					/>
 				</div>
-			)}
+			)} */}
 			<span className="text-xl font-semibold">
 				Willkommen zur Testapplikation meines{' '}
 				<a
@@ -157,7 +159,12 @@ const Tutorial = ({
 				</a>
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Technische Details:</h1>
-			<img src="images/aws_diagram_2.png" />
+			<Image
+				src="/images/aws_diagram_2.png"
+				alt="aws_diagram"
+				width={1000}
+				height={1000}
+			/>
 			<p className="mt-4">
 				Diese App ist sehr simpel aufgebaut. Im Frontend läuft eine Next.js
 				Applikation die auf{' '}
@@ -235,7 +242,7 @@ const Tutorial = ({
 				den Link erneut ein und klicken Sie auf &quot;Bestätigen&quot;.
 			</p>
 			<video
-				src="videos/tutorial.mp4"
+				src="videos/tutorial2.mp4"
 				autoPlay
 				loop
 				className="border border-black"
@@ -282,20 +289,23 @@ const Tutorial = ({
 				<li>
 					Starten der kostenlosen Inference API von Huggingface kann bis zu 20
 					Sekunden dauern.
-					<img
-						src="images/api_starting_error.png"
+					<Image
+						src="/images/api_starting_error.png"
 						className="rounded-md border border-black"
 						alt="api starting please wait error"
+						width={1000}
+						height={100}
 					/>
 				</li>
 				<li>
 					Manchmal schlägt die Klassifizierung fehl. Der Grund dafür ist
 					unbekannt, da die API von Huggingface gemanaged wird.
-					<img
-						src="images/something_went_wrong_huggingface.png"
+					<Image
+						src="/images/something_went_wrong_huggingface.png"
 						alt="something went wrong with huggingface"
 						className="rounded-md border border-black"
-						width={750}
+						width={1000}
+						height={100}
 					/>
 				</li>
 				<li>
@@ -303,11 +313,12 @@ const Tutorial = ({
 					dieses Rate Limit erreicht wurde, schlagen neue Anfragen fehl und
 					zeigen dies auch als Fehler an. Das Rate Limit wird zum Anfang jeder
 					Stunde zurückgesetzt.
-					<img
-						src="images/ratelimit.png"
+					<Image
+						src="/images/ratelimit.png"
 						alt="rate limit"
 						className="rounded-md border border-black"
-						width={750}
+						width={1000}
+						height={100}
 					/>
 				</li>
 				<li>

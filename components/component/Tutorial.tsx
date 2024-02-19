@@ -84,19 +84,8 @@ const Tutorial = ({
 	return (
 		<div
 			ref={modalRef}
-			className="no-scrollbar h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-5 shadow-xl lg:h-[800px] lg:w-[1000px] lg:p-10"
+			className="no-scrollbar relative h-[500px] w-full overflow-y-scroll rounded-lg bg-white p-5 shadow-xl lg:h-[800px] lg:w-[1000px] lg:p-10"
 		>
-			{/* {!entry?.isIntersecting && (
-				<div className="absolute bottom-20 right-1/2 translate-x-1/2">
-					<FaArrowDown
-						className="animate-bounce cursor-pointer rounded-full bg-gray-400 bg-opacity-30 p-1"
-						size={30}
-						onClick={() => {
-							scrollToBottom();
-						}}
-					/>
-				</div>
-			)} */}
 			<span className="text-xl font-semibold">
 				Willkommen zur Testapplikation meines{' '}
 				<a
@@ -122,7 +111,7 @@ const Tutorial = ({
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Über das Modell</h1>
 			<p className="mt-4">
-				Das Modell wurde mit meinem selbst gesammelten{' '}
+				Das Modell wurde mit meinem selbst erstellten{' '}
 				<a
 					className="inline-flex items-center text-blue-500"
 					href="https://huggingface.co/datasets/ugursa/Yahoo-Finance-News-Sentences"
@@ -384,6 +373,15 @@ const Tutorial = ({
 			</button>
 			<div ref={ref1}></div>
 			<div ref={bottomRef}></div>
+			{!entry?.isIntersecting && (
+				<div className="fixed bottom-[20%] right-1/2 translate-x-1/2 cursor-pointer lg:bottom-[8%]">
+					<FaArrowDown
+						className="animate-bounce rounded-full bg-gray-400 bg-opacity-30 p-1"
+						size={30}
+						onClick={scrollToBottom}
+					/>
+				</div>
+			)}
 		</div>
 	);
 };

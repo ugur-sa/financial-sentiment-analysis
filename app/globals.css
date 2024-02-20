@@ -76,7 +76,7 @@ body {
 
 .glowing-border-div {
 	padding: 5px 10px;
-	border-radius: 20px;
+	border-radius: 30px;
 	color: black; /* Textfarbe */
 	font-size: 12px;
 	font-weight: bold;
@@ -95,8 +95,8 @@ body {
 	bottom: 0;
 	left: 0;
 	z-index: -1;
-	background: rgb(241, 241, 241); /* Hintergrundfarbe des div */
-	border-radius: 30px; /* Radius des div */
+	background: rgb(241, 241, 241);
+	border-radius: 30px;
 }
 
 .glowing-border-div::after {
@@ -107,8 +107,8 @@ body {
 	bottom: -2px;
 	left: -2px; /* Größe des Glüheffekts */
 	z-index: -2;
-	background: linear-gradient(
-		60deg,
+	background: conic-gradient(
+		from var(--a),
 		#ff0000,
 		#ff7300,
 		#fffb00,
@@ -119,20 +119,23 @@ body {
 		#ff00ab,
 		#ff0000
 	);
-	background-size: 300% 300%;
+	background-size: 100% 100%;
 	border-radius: 30px;
 	opacity: 1;
-	animation: moveGradient 20s linear infinite;
+	animation: moveGradient 10s linear infinite;
+}
+
+@property --a {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
 }
 
 @keyframes moveGradient {
 	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
+		--a: 0deg;
 	}
 	100% {
-		background-position: 0% 50%;
+		--a: 360deg;
 	}
 }

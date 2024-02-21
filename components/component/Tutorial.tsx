@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaArrowDown } from 'react-icons/fa6';
 import { GoLinkExternal } from 'react-icons/go';
-import {
-	CheckIcon,
-	FailedIcon,
-	InfoIcon,
-	SuccessIcon,
-	XCircleIcon,
-} from '../ui/Icons';
+import { CheckIcon, InfoIcon, XCircleIcon } from '../ui/Icons';
 import TextareaAutosize from 'react-textarea-autosize';
 import { writeFeedback } from '@/app/actions/writeFeedback';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '../ui/button';
 import Image from 'next/image';
+import FadeLoader from 'react-spinners/FadeLoader';
 
 interface TutorialProps {
 	onClose: () => void;
@@ -32,8 +27,9 @@ const Tutorial = ({
 	scrollToBottom,
 }: TutorialProps) => {
 	const videoRef = React.useRef<HTMLVideoElement>(null);
-	const [fullName, setFullName] = React.useState('');
-	const [feedbackText, setFeedbackText] = React.useState('');
+	const [fullName, setFullName] = useState('');
+	const [feedbackText, setFeedbackText] = useState('');
+	const [sendingFeedback, setSendingFeedback] = useState(false);
 	const { toast } = useToast();
 
 	useEffect(() => {
@@ -71,9 +67,15 @@ const Tutorial = ({
 			writeFeedback(fullName, feedbackText);
 		} catch (error) {
 			console.error('Feedback konnte nicht gesendet werden.');
+			setSendingFeedback(false);
+			toast({
+				title: 'Fehler',
+				description: 'Feedback konnte nicht gesendet werden.',
+			});
 		} finally {
 			setFullName('');
 			setFeedbackText('');
+			setSendingFeedback(false);
 			toast({
 				title: 'Erfolgreich',
 				description: 'Ihr Feedback wurde eingereicht. Vielen Dank!',
@@ -98,7 +100,7 @@ const Tutorial = ({
 			</span>
 			<p className="text-sm">
 				<span className="font-bold text-red-500">Hinweis:</span> Wie oben links
-				zu entnehmen ist, wird dieser Seite nach dem 01.06.2024 ablaufen und
+				zu entnehmen ist, wird diese Seite nach dem 01.06.2024 ablaufen und
 				nicht mehr verfügbar sein.
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Einführung</h1>
@@ -107,7 +109,10 @@ const Tutorial = ({
 				Finanznachrichten zu demonstrieren. <br />
 				Dabei wird im Hintergrund mein eigenes für die Bachelorarbeit
 				feinabgestimmtes BERT-Modell verwendet. <br />
-				Link zur Bachlorarbeit folgt: <a href="/">...</a>
+				Link zur Bachlorarbeit folgt:{' '}
+				<a href="/" target="_blank">
+					...
+				</a>
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Über das Modell</h1>
 			<p className="mt-4">
@@ -142,6 +147,7 @@ const Tutorial = ({
 				<a
 					className="inline-flex items-center text-blue-500"
 					href="https://github.com/ugur-sa/Bachelorarbeit/tree/main/data/Abgabe"
+					target="_blank"
 				>
 					https://github.com/ugur-sa/Bachelorarbeit/tree/main/data/Abgabe{' '}
 					<GoLinkExternal className="ml-1" size={12} />
@@ -182,8 +188,8 @@ const Tutorial = ({
 				Danach kann der Nutzer die Ergebnisse über eine weitere API abrufen.{' '}
 				<br />
 				Ihre bisherigen Anfragen können Sie in der Tabelle unten einsehen. Diese
-				werden in Localstorage gespeichert und sind somit nur für Sie auch nach
-				dem Schließen des Tabs verfügbar (da die Ergebnisse in der Datenbank
+				werden in Localstorage gespeichert und sind somit für Sie auch nach dem
+				Schließen des Tabs verfügbar (da die Ergebnisse in der Datenbank
 				gespeichert sind, können Sie auch den Link kopieren und weiterschicken,
 				ohne dass es einer erneuten Verarbeitung bedarf). Wenn Sie einen Link
 				eingeben, der schon verarbeitet wurde, dann werden Sie nach einer kurzen
@@ -262,6 +268,7 @@ const Tutorial = ({
 				<a
 					href="https://github.com/ugur-sa/Bachelorarbeit/blob/main/flask/app.py"
 					className="inline-flex items-center text-blue-500"
+					target="_blank"
 				>
 					https://github.com/ugur-sa/Bachelorarbeit/blob/main/flask/app.py{' '}
 					<GoLinkExternal className="ml-1" size={12} />
@@ -345,7 +352,22 @@ const Tutorial = ({
 					type="submit"
 					className="w-32 rounded-lg bg-black p-2 text-center font-semibold text-white hover:bg-zinc-800"
 					variant="outline"
+					onClick={() => {
+						setSendingFeedback(true);
+					}}
 				>
+					{sendingFeedback === true && (
+						<div className="sweet-loading">
+							<FadeLoader
+								color={'#fff'}
+								aria-label="Loading Spinner"
+								data-testid="loader"
+								height={15}
+								width={5}
+								margin={-5}
+							/>
+						</div>
+					)}
 					Absenden
 				</Button>
 			</form>

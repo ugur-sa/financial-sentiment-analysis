@@ -161,15 +161,35 @@ const Tutorial = ({
 				height={1000}
 			/>
 			<p className="mt-4">
-				Diese App ist sehr simpel aufgebaut. Im Frontend läuft eine Next.js
+				Diese App ist sehr simpel aufgebaut. Im Frontend läuft eine{' '}
+				<a
+					href="https://nextjs.org"
+					target="_blank"
+					className="inline-flex items-center rounded border border-neutral-200 bg-neutral-50 p-1 text-sm leading-4 text-neutral-900 no-underline dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+				>
+					<img
+						alt="Next.js logomark"
+						src="/svgs/next-logo.svg"
+						className="!mr-1"
+						width="14"
+						height="14"
+					/>
+					Next.js
+				</a>{' '}
 				Applikation die auf{' '}
 				<a
-					className="inline-flex items-center text-blue-500"
-					href="https://www.vercel.com"
+					href="https://vercel.com"
 					target="_blank"
+					className="inline-flex items-center rounded border border-neutral-200 bg-neutral-50 p-1 text-sm leading-4 text-neutral-900 no-underline dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
 				>
+					<img
+						alt="Vercel logomark"
+						src="/svgs/vercel-icon-light.svg"
+						className="!mr-1"
+						width="12"
+						height="12"
+					/>
 					Vercel
-					<GoLinkExternal className="ml-1" size={12} />{' '}
 				</a>{' '}
 				gehostet wird. <br />
 				Ursprünglich war das Backend ein einfacher Python Flask Server, der die

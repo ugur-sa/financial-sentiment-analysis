@@ -146,10 +146,10 @@ const Tutorial = ({
 				Link zu den Notebooks und Skripts:{' '}
 				<a
 					className="inline-flex items-center text-blue-500"
-					href="https://github.com/ugur-sa/Bachelorarbeit/tree/main/data/Abgabe"
+					href="https://github.com/ugur-sa/Ugur_Sadiklar_BA_2024"
 					target="_blank"
 				>
-					https://github.com/ugur-sa/Bachelorarbeit/tree/main/data/Abgabe{' '}
+					https://github.com/ugur-sa/Ugur_Sadiklar_BA_2024{' '}
 					<GoLinkExternal className="ml-1" size={12} />
 				</a>
 			</p>

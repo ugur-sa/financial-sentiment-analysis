@@ -124,6 +124,16 @@ export default function Home() {
 								: request,
 						),
 					);
+				} else if (
+					message.error === 'Yahoo returned an Error. Please try again later.'
+				) {
+					setRequests((prev) =>
+						prev.map((request) =>
+							request.url === message.url
+								? { ...request, status: 'failed', text: message.error }
+								: request,
+						),
+					);
 				} else if (message.status === 'pending') {
 					setRequests((prev) =>
 						prev.map((request) =>

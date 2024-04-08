@@ -343,6 +343,20 @@ const Tutorial = ({
 					Scraping-Skript zur Zeit nur daran angepasst ist. Außerdem werden nur
 					Artikel die /news/ im Link haben verarbeitet wegen dem gleichen Grund.
 				</li>
+				<li>
+					Oft kommt es dazu, dass Yahoo Finance bei der Abfrage mit requests ein
+					404 zurückgibt. Das passiert nach Erfahrung zufällig und es kann nicht
+					garantiert werden, dass es nicht passiert. Für den Fall, dass es
+					passiert, ist der Nutzer darauf hingewiesen einen neuen Artikel zu
+					wählen, auch wenn das nicht Sinn der Sache ist. Ich entschuldige mich
+					für die Unannehmlichkeiten. Falls keine der ausgewählten Artikel
+					funktionieren, dann wird auf die bisherigen{' '}
+					<a href="/results" className="font-bold text-blue-500">
+						Abfragen
+					</a>{' '}
+					hingewiesen, damit man sehen kann wie die Ergebnisse aussehen könnten
+					(der blaue Text ist ein Link zu dieser Seite).
+				</li>
 			</ul>
 
 			<h1 className="mt-4 text-lg font-semibold">Feedback</h1>

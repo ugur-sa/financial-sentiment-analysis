@@ -354,7 +354,7 @@ const Tutorial = ({
 					<a href="/results" className="font-bold text-blue-500">
 						Abfragen
 					</a>{' '}
-					hingewiesen, damit man sehen kann wie die Ergebnisse aussehen könnten
+					hingewiesen, damit man sehen kann, wie die Ergebnisse aussehen könnten
 					(der blaue Text ist ein Link zu dieser Seite).
 				</li>
 			</ul>

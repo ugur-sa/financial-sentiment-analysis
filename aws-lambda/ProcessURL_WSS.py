@@ -4,7 +4,7 @@ import re
 import json
 import boto3
 
-client = boto3.client("apigatewaymanagementapi", endpoint_url="https://ekew0vs61d.execute-api.eu-central-1.amazonaws.com/production")
+client = boto3.client("apigatewaymanagementapi", endpoint_url="xxx")
 
 alphabets= "([A-Za-z])"
 prefixes = "(Mr|St|Mrs|Ms|Dr)[.]"
@@ -16,7 +16,7 @@ digits = "([0-9])"
 multiple_dots = r'\.{2,}'
 
 API_URL = "https://api-inference.huggingface.co/models/ugursa/FinancialBERT-Yahoo-Finance-Sentiment-Analysis"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer xxx"}
 
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)

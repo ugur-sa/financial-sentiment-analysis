@@ -286,11 +286,11 @@ const Tutorial = ({
 				Das gesamte Sentiment wird anhand des gewichteten Sentiments angezeigt.
 				Den Code für die Rechnung des Sentiments kann man hier finden:{' '}
 				<a
-					href="https://github.com/ugur-sa/Bachelorarbeit/blob/main/flask/app.py"
+					href="https://github.com/ugur-sa/financial-sentiment-analysis/blob/master/aws-lambda/ProcessURL_WSS.py"
 					className="inline-flex items-center text-blue-500"
 					target="_blank"
 				>
-					https://github.com/ugur-sa/Bachelorarbeit/blob/main/flask/app.py{' '}
+					https://github.com/ugur-sa/financial-sentiment-analysis/blob/master/aws-lambda/ProcessURL_WSS.py{' '}
 					<GoLinkExternal className="ml-1" size={12} />
 				</a>
 			</p>

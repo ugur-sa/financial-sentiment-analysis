@@ -105,10 +105,11 @@ const Tutorial = ({
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Einführung</h1>
 			<p className="mt-4">
-				Diese Applikation wurde entwickelt, um die Sentiment-Analyse von
-				Finanznachrichten zu demonstrieren. <br />
-				Dabei wird im Hintergrund mein eigenes für die Bachelorarbeit
-				feinabgestimmtes BERT-Modell verwendet. <br />
+				Die vorliegende Applikation wurde entwickelt, um die Sentiment-Analyse
+				von Finanznachrichten zu demonstrieren. <br />
+				Dabei kommt im Hintergrund ein eigens für die Bachelorarbeit
+				entwickeltes und feinabgestimmtes BERT-Modell zum Einsatz.
+				<br />
 				Link zur Bachlorarbeit folgt:{' '}
 				<a href="/" target="_blank">
 					...
@@ -116,16 +117,16 @@ const Tutorial = ({
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Über das Modell</h1>
 			<p className="mt-4">
-				Das Modell wurde mit meinem selbst erstellten{' '}
+				Das Modell wurde anhand eines selbst erstellten{' '}
 				<a
 					className="inline-flex items-center text-blue-500"
 					href="https://huggingface.co/datasets/ugursa/Yahoo-Finance-News-Sentences"
 					target="_blank"
 				>
-					Datensatz <GoLinkExternal className="ml-1" size={12} />
+					Datensatzes <GoLinkExternal className="ml-1" size={12} />
 				</a>{' '}
 				von Sätzen aus Yahoo Finance Artikeln trainiert. <br />
-				Die Daten wurden mit mehrenen Python Skripts und Jupyter Notebooks
+				Die Daten wurden mit mehreren Python-Skripten und Jupyter Notebooks
 				gesammelt und aufbereitet und anschließend mit{' '}
 				<a
 					className="inline-flex items-center text-blue-500"
@@ -161,7 +162,8 @@ const Tutorial = ({
 				height={1000}
 			/>
 			<p className="mt-4">
-				Diese App ist sehr simpel aufgebaut. Im Frontend läuft eine{' '}
+				Diese Applikation ist in ihrer Struktur sehr übersichtlich gestaltet. Im
+				Frontend wird eine{' '}
 				<a
 					href="https://nextjs.org"
 					target="_blank"
@@ -176,7 +178,7 @@ const Tutorial = ({
 					/>
 					Next.js
 				</a>{' '}
-				Applikation die auf{' '}
+				Applikation verwendet, die auf{' '}
 				<a
 					href="https://vercel.com"
 					target="_blank"
@@ -192,28 +194,32 @@ const Tutorial = ({
 					Vercel
 				</a>{' '}
 				gehostet wird. <br />
-				Ursprünglich war das Backend ein einfacher Python Flask Server, der die
-				URL entgegen nimmt, den Text aus dem Artikel extrahiert, den Text in
-				Sätze aufteilt und dann die Sätze an die Inference API von Huggingface
-				schickt. <br />
-				Bei so einem einfachen Skript ist es einfacher einen Serverless Ansatz
-				mit AWS Lambda zu wählen. AWS Lambda ist bis 1 Millionen Anfragen pro
-				Monat kostenlos und man muss keine eigene Serverinstanz verwalten. Die
-				Verbindung zu dieser Lambda Funktion erfolgt über einen weiteren AWS
-				Service namens API Gateway. Dieser Service ist als Websocket
-				konfiguriert, sodass die Lambda Funktion auf Anfragen reagieren kann. So
-				gelingt die Echtzeit Kommunikation zwischen Frontend und Backend. <br />
-				Nachdem die Verarbeitung abgeschlossen ist, legt diese Lambda Funktion
-				das Ergebnis in einer DynamoDB Tabelle ab. <br />
-				Danach kann der Nutzer die Ergebnisse über eine weitere API abrufen.{' '}
 				<br />
-				Ihre bisherigen Anfragen können Sie in der Tabelle unten einsehen. Diese
-				werden in Localstorage gespeichert und sind somit für Sie auch nach dem
-				Schließen des Tabs verfügbar (da die Ergebnisse in der Datenbank
-				gespeichert sind, können Sie auch den Link kopieren und weiterschicken,
-				ohne dass es einer erneuten Verarbeitung bedarf). Wenn Sie einen Link
-				eingeben, der schon verarbeitet wurde, dann werden Sie nach einer kurzen
-				Verzögerung zur Ergbenisseite weitergeleitet.
+				Das Backend basiert ursprünglich auf einem einfachen Python Flask
+				Server, der die URL entgegenimmt, den Text aus dem Artikel extrahiert,
+				den Text in Sätze aufteilt und schließlich die Sätze an die Inference
+				API von Hugging Face schickt. <br />
+				Bei einem derart simplen Skript empfiehlt sich die Verwendung eines
+				Serverless-Ansatzes, wie er beispielsweise mit AWS Lambda zur Verfügung
+				steht. AWS Lambda ist bis zu einer Million Anfragen pro Monat kostenlos
+				nutzbar, sodass keine eigene Serverinstanz verwaltet werden muss. Die
+				Verbindung zu dieser Lambda-Funktion erfolgt über einen weiteren
+				AWS-Service namens API Gateway. Dieser ist als Websocket konfiguriert,
+				sodass die Lambda-Funktion auf Anfragen reagieren kann. Auf diese Weise
+				kann eine Echtzeit-Kommunikation zwischen Frontend und Backend
+				gewährleistet werden.
+				<br />
+				<br />
+				Nach Abschluss der Verarbeitung wird das Ergebnis durch die
+				Lambda-Funktion in einer DynamoDB-Tabelle gespeichert. Der Nutzer kann
+				die Ergebnisse über eine weitere API abrufen. Die bisherigen Anfragen
+				können in der Tabelle unten eingesehen werden. Diese werden im
+				LocalStorage gespeichert und sind somit auch nach dem Schließen des Tabs
+				verfügbar. Da die Ergebnisse in der Datenbank gespeichert sind, kann der
+				Link kopiert und weitergeleitet werden, ohne dass es einer erneuten
+				Verarbeitung bedarf. Bei Eingabe eines bereits verarbeiteten Links
+				erfolgt eine kurze Verzögerung, bevor die Ergebnisseite aufgerufen wird.{' '}
+				<br />
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">Wie man Tests durchführt</h1>
 			<p className="mt-4">
@@ -247,14 +253,15 @@ const Tutorial = ({
 					<CheckIcon className="text-green-500" />
 				</span>
 				) anzeigt, ist die Verarbeitung abgeschlossen und Sie können die
-				Ergebnisse einsehen. Manchmal kann es zu Fehlern kommen, die durch ein
-				rotes Kreuz (
+				Ergebnisse einsehen. <br />
+				In gelegentlichen Fällen können Fehler auftreten, die durch ein rotes
+				Kreuz (
 				<span className="inline-flex justify-center">
 					<XCircleIcon className="text-red-500" />
 				</span>
-				) angezeigt werden. Durch <i>hovern</i> über das rote Kreuz können Sie
-				den Fehler einsehen. Um die Verarbeitung erneut zu starten, geben Sie
-				den Link erneut ein und klicken Sie auf &quot;Bestätigen&quot;.
+				) angezeigt werden. Durch <i>hovern</i> des Kreuzes können Sie den
+				Fehler einsehen. Um die Verarbeitung erneut zu starten, geben Sie den
+				Link erneut ein und klicken Sie auf &quot;Bestätigen&quot;.
 			</p>
 			{/* <video
 				src="videos/tutorial2.mp4"
@@ -264,27 +271,30 @@ const Tutorial = ({
 				ref={videoRef}
 			/> */}
 			<p className="mt-4">
-				Ein häufiger Fehler der auftreten kann, ist dass die Inference API von
-				Huggingface erst gestartet werden muss, da nur das kostenlose Kontingent
-				genutzt wird. Dieser Vorgang kann bis zu 20 Sekunden dauern.
+				Ein häufig zu beobachtender Fehler ist, dass die Inference API von
+				Hugging Face zunächst gestartet werden muss, da lediglich das kostenlose
+				Kontingent genutzt wird. Dieser Vorgang kann bis zu 20 Sekunden dauern.
 			</p>
 			<h1 className="mt-4 text-lg font-semibold">
 				Interpretation der Ergebnisse des Modells
 			</h1>
 			<p className="mt-4">
 				Das Ergebniss der Verarbeitung bzw. der Klassifizierung ist eine
-				Darstellung bei der auf einer Seite die Sätze des Artikels farbig
+				Darstellung, bei der auf einer Seite die Sätze des Artikels farbig
 				markiert werden (<span className="text-green-500">grün</span>,{' '}
 				<span className="text-gray-400">grau</span> oder{' '}
 				<span className="text-red-500">rot</span>) und auf der anderen Seite
 				eine Zusammenfassung der Klassifizierung in Form von Karten dargestellt
 				wird. <br />
-				Dabei wird das gesamte Sentiment des Artikels, das gewichtete und die
-				durchschnittlichen Scores der Sätze und die Anzahl der Sätze in den
-				Kategorien &quot;bullish&quot;, &quot;neutral&quot; und
-				&quot;bearish&quot; angezeigt. <br />
+				Die Darstellung umfasst das gesamte Sentiment des Artikels, das
+				gewichtete sowie die durchschnittlichen Scores der Sätze und die Anzahl
+				der Sätze in den Kategorien &quot;bullish&quot;, &quot;neutral&quot; und
+				&quot;bearish&quot; . <br />
 				Das gesamte Sentiment wird anhand des gewichteten Sentiments angezeigt.
-				Den Code für die Rechnung des Sentiments kann man hier finden:{' '}
+				<br />
+				<br />
+				Der Code für die Rechnung des Sentiments unter folgendem Link eingesehen
+				werden:{' '}
 				<a
 					href="https://github.com/ugur-sa/financial-sentiment-analysis/blob/master/aws-lambda/ProcessURL_WSS.py"
 					className="inline-flex items-center text-blue-500"
@@ -325,10 +335,11 @@ const Tutorial = ({
 					/>
 				</li>
 				<li>
-					Da die Inference API kostenlos ist, hat sie ein Rate Limit. Wenn
-					dieses Rate Limit erreicht wurde, schlagen neue Anfragen fehl und
-					zeigen dies auch als Fehler an. Das Rate Limit wird zum Anfang jeder
-					Stunde zurückgesetzt.
+					Die Inference API ist kostenlos verfügbar, allerdings ist ihr
+					Funktionsumfang durch ein Rate Limit beschränkt. Sobald dieses Limit
+					erreicht ist, werden neue Anfragen abgelehnt und als Fehler
+					gekennzeichnet. Das Rate Limit wird zu Beginn jeder Stunde
+					zurückgesetzt.
 					<Image
 						src="/images/ratelimit.png"
 						alt="rate limit"
@@ -340,29 +351,29 @@ const Tutorial = ({
 				<li>
 					Es können nur Links von Yahoo Finance Artikeln aus der Kategorie
 					&quot;Business&quot; verarbeitet werden. Das liegt daran, dass das
-					Scraping-Skript zur Zeit nur daran angepasst ist. Außerdem werden nur
-					Artikel die /news/ im Link haben verarbeitet wegen dem gleichen Grund.
+					Scraping-Skript zur Zeit nur daran angepasst ist. Außerdem werden zur
+					Zeit nur Artikel die /news/ im Link haben verarbeitet.
 				</li>
 				<li>
-					Oft kommt es dazu, dass Yahoo Finance bei der Abfrage mit requests ein
-					404 zurückgibt. Das passiert nach Erfahrung zufällig und es kann nicht
-					garantiert werden, dass es nicht passiert. Für den Fall, dass es
-					passiert, ist der Nutzer darauf hingewiesen einen neuen Artikel zu
-					wählen, auch wenn das nicht Sinn der Sache ist. Ich entschuldige mich
-					für die Unannehmlichkeiten. Falls keine der ausgewählten Artikel
-					funktionieren, dann wird auf die bisherigen{' '}
+					Oft kommt es vor, dass Yahoo Finance bei der Abfrage mit requests ein
+					404 zurückgibt. Das tritt nach Erfahrung zufällig auf und es kann
+					nicht garantiert werden, dass es nicht eintritt. Falls es eintritt,
+					wird der Nutzer darauf hingewiesen, einen neuen Artikel auszuwählen,
+					auch wenn dies nicht der ursprünglichen Idee entspricht (ich
+					entschuldige mich für die Unannehmlichkeiten). Falls keine der
+					ausgewählten Artikel funktionieren, dann wird auf die bisherigen{' '}
 					<a href="/results" className="font-bold text-blue-500">
 						Abfragen
 					</a>{' '}
-					hingewiesen, damit man sehen kann, wie die Ergebnisse aussehen könnten
-					(der blaue Text ist ein Link zu dieser Seite).
+					hingewiesen, sodass ersichtlich wird, wie die Ergebnisse aussehen
+					könnten (der blaue Text ist ein Link zu dieser Seite).
 				</li>
 			</ul>
 
 			<h1 className="mt-4 text-lg font-semibold">Feedback</h1>
 			<p className="mt-4">
-				Wenn Sie Feedback haben können Sie es in das Textfeld eintragen und
-				absenden.
+				Bitte teilen Sie mir Ihr Feedback mit, indem Sie es in das dafür
+				vorgesehene Textfeld eintragen und anschließend absenden.
 			</p>
 
 			<form action={handleFeedbackSubmit}>
@@ -414,11 +425,11 @@ const Tutorial = ({
 			</p>
 			<div className="my-4 h-[1px] w-full bg-gray-300"></div>
 			<p className="mt-4">
-				Diesen Dialog können Sie immer wieder öffnen indem Sie auf das{' '}
+				Der Dialog kann durch einen Klick auf das{' '}
 				<span className="inline-flex">
 					<InfoIcon />
 				</span>{' '}
-				oben rechts klicken.
+				oben rechts wiederholt geöffnet werden.
 			</p>
 
 			<button

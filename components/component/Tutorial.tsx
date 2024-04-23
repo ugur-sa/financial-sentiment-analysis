@@ -263,13 +263,13 @@ const Tutorial = ({
 				Fehler einsehen. Um die Verarbeitung erneut zu starten, geben Sie den
 				Link erneut ein und klicken Sie auf &quot;Bestätigen&quot;.
 			</p>
-			{/* <video
+			<video
 				src="videos/tutorial2.mp4"
 				autoPlay
 				loop
 				className="border border-black"
 				ref={videoRef}
-			/> */}
+			/>
 			<p className="mt-4">
 				Ein häufig zu beobachtender Fehler ist, dass die Inference API von
 				Hugging Face zunächst gestartet werden muss, da lediglich das kostenlose
@@ -367,8 +367,29 @@ const Tutorial = ({
 					</a>{' '}
 					hingewiesen, sodass ersichtlich wird, wie die Ergebnisse aussehen
 					könnten (der blaue Text ist ein Link zu dieser Seite).
+					<Image
+						src="/images/yahooerror.png"
+						alt="yahoo error"
+						className="rounded-md border border-black"
+						width={1000}
+						height={100}
+					/>
 				</li>
 			</ul>
+
+			<h1 className="mt-4 text-lg font-semibold">Update 23.04.2024</h1>
+			<p className="mt-4">
+				Yahoo Finance hat vor kurzem das Design der Webseite geändert. Das ist
+				allerdings kein Problem, da die HTML-Strukturen und Links gleich
+				geblieben sind. Dennoch kann man (falls notwendig) das alte Design
+				einsehen:
+			</p>
+			<Image
+				src="/svgs/OldDesign.svg"
+				alt="return to old design"
+				width={1000}
+				height={100}
+			/>
 
 			<h1 className="mt-4 text-lg font-semibold">Feedback</h1>
 			<p className="mt-4">

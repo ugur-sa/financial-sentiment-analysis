@@ -263,13 +263,13 @@ const Tutorial = ({
 				Fehler einsehen. Um die Verarbeitung erneut zu starten, geben Sie den
 				Link erneut ein und klicken Sie auf &quot;Bestätigen&quot;.
 			</p>
-			<video
+			{/* <video
 				src="videos/tutorial2.mp4"
 				autoPlay
 				loop
 				className="border border-black"
 				ref={videoRef}
-			/>
+			/> */}
 			<p className="mt-4">
 				Ein häufig zu beobachtender Fehler ist, dass die Inference API von
 				Hugging Face zunächst gestartet werden muss, da lediglich das kostenlose
